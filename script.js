@@ -1,619 +1,531 @@
-// script.js - Café com Bytes
-
-// Estado global em memória (sem localStorage)
-const state = {
-  ferramentas: [],
-  parceiros: [],
-  tagsConfig: {},
-  filtroCategoria: "todos",
-  termoBusca: "",
-  fontScale: 1,
-  theme: null
+const appState = {
+  tools: [],
+  partners: [],
+  tagStyles: {},
+  activeCategory: "todos",
+  activeJourney: "todos",
+  query: "",
+  currentTool: null,
+  theme: null,
+  fontScale: "normal",
+  uiStorage: {
+    get(key) {
+      try {
+        return window.localStorage.getItem(key);
+      } catch (error) {
+        return null;
+      }
+    },
+    set(key, value) {
+      try {
+        window.localStorage.setItem(key, value);
+      } catch (error) {
+        return false;
+      }
+      return true;
+    }
+  }
 };
 
-// Seletores principais
-const el = {
-  searchForm: document.getElementById("search-form"),
-  searchInput: document.getElementById("search-input"),
-  clearSearch: document.getElementById("clear-search"),
-  googleFallback: document.getElementById("google-search-fallback"),
-  filtersBento: document.getElementById("filters-bento"),
-  resultsGrid: document.getElementById("results-grid"),
-  resultsEmpty: document.getElementById("results-empty"),
-  resultsCount: document.getElementById("resultados-contador"),
-  statNovas: document.getElementById("stat-novas"),
-  statCategorias: document.getElementById("stat-categorias"),
-  statAtualizacao: document.getElementById("stat-atualizacao"),
-  partnersList: document.getElementById("partners-list"),
+const dom = {
+  html: document.documentElement,
+  searchForm: document.getElementById("searchForm"),
+  searchInput: document.getElementById("buscaFerramenta"),
+  clearSearchButton: document.getElementById("clearSearchButton"),
+  googleFallbackButton: document.getElementById("googleFallbackButton"),
+  cardsGrid: document.getElementById("cardsGrid"),
+  emptyState: document.getElementById("emptyState"),
+  resultCount: document.getElementById("resultCount"),
+  journeyFilters: document.getElementById("journeyFilters"),
+  categoryFilters: document.getElementById("categoryFilters"),
+  partnersList: document.getElementById("partnersList"),
   themeToggle: document.querySelector("[data-theme-toggle]"),
-  fontScaleToggle: document.querySelector("[data-font-scale-toggle]"),
-  footerYear: document.getElementById("footer-year"),
-  modalBackdrop: document.getElementById("tool-modal-backdrop"),
-  modal: document.getElementById("tool-modal"),
-  modalCloseBtn: document.getElementById("modal-close-btn"),
-  modalTitle: document.getElementById("tool-modal-title"),
-  modalCategory: document.getElementById("modal-category"),
-  modalDor: document.getElementById("modal-dor"),
-  modalDescricao: document.getElementById("modal-descricao"),
-  modalTags: document.getElementById("modal-tags"),
-  modalVisitLink: document.getElementById("modal-visit-link"),
-  modalShareBtn: document.getElementById("modal-share-btn")
+  fontToggle: document.querySelector("[data-font-toggle]"),
+  modalBackdrop: document.getElementById("modalBackdrop"),
+  modalClose: document.getElementById("modalClose"),
+  modalTitle: document.getElementById("modalTitle"),
+  modalCategory: document.getElementById("modalCategory"),
+  modalDor: document.getElementById("modalDor"),
+  modalDescription: document.getElementById("modalDescription"),
+  modalBestFor: document.getElementById("modalBestFor"),
+  modalScenario: document.getElementById("modalScenario"),
+  modalCuidado: document.getElementById("modalCuidado"),
+  modalJourney: document.getElementById("modalJourney"),
+  modalUrgency: document.getElementById("modalUrgency"),
+  modalTags: document.getElementById("modalTags"),
+  modalVisitLink: document.getElementById("modalVisitLink"),
+  modalShare: document.getElementById("modalShare")
 };
 
-// Inicialização
 document.addEventListener("DOMContentLoaded", () => {
-  initTheme();
-  initFontScale();
-  attachEvents();
-  fetchAllData();
-  updateFooterYear();
-  hydrateModalFromUrl();
+  setupTheme();
+  setupFontScale();
+  bindEvents();
+  loadData();
 });
 
-// Tema (dark/light) com prefers-color-scheme e botão de toggle
-function initTheme() {
-  const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
-  const html = document.documentElement;
-  state.theme = prefersDark ? "dark" : "light";
-  html.setAttribute("data-theme", state.theme);
-  renderThemeIcon();
+function setupTheme() {
+  const savedTheme = appState.uiStorage.get("ccb-theme");
+  const systemPrefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  appState.theme = savedTheme || (systemPrefersDark ? "dark" : "light");
+  dom.html.setAttribute("data-theme", appState.theme);
 }
 
 function toggleTheme() {
-  state.theme = state.theme === "dark" ? "light" : "dark";
-  document.documentElement.setAttribute("data-theme", state.theme);
-  renderThemeIcon();
+  appState.theme = appState.theme === "dark" ? "light" : "dark";
+  dom.html.setAttribute("data-theme", appState.theme);
+  appState.uiStorage.set("ccb-theme", appState.theme);
 }
 
-function renderThemeIcon() {
-  if (!el.themeToggle) return;
-  if (state.theme === "dark") {
-    el.themeToggle.innerHTML = `
-      <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
-        <path fill="currentColor" d="M21 12.79A9 9 0 0 1 11.21 3 7 7 0 1 0 21 12.79z"/>
-      </svg>
-    `;
-    el.themeToggle.setAttribute("aria-label", "Alternar para tema claro");
-  } else {
-    el.themeToggle.innerHTML = `
-      <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
-        <circle cx="12" cy="12" r="4" fill="currentColor"/>
-        <g stroke="currentColor" stroke-width="1.5">
-          <line x1="12" y1="2" x2="12" y2="5"/>
-          <line x1="12" y1="19" x2="12" y2="22"/>
-          <line x1="4.22" y1="4.22" x2="6.34" y2="6.34"/>
-          <line x1="17.66" y1="17.66" x2="19.78" y2="19.78"/>
-          <line x1="2" y1="12" x2="5" y2="12"/>
-          <line x1="19" y1="12" x2="22" y2="12"/>
-          <line x1="4.22" y1="19.78" x2="6.34" y2="17.66"/>
-          <line x1="17.66" y1="6.34" x2="19.78" y2="4.22"/>
-        </g>
-      </svg>
-    `;
-    el.themeToggle.setAttribute("aria-label", "Alternar para tema escuro");
-  }
-}
-
-// Escala de fonte simples (A+)
-function initFontScale() {
-  applyFontScale();
+function setupFontScale() {
+  const savedScale = appState.uiStorage.get("ccb-font-scale");
+  appState.fontScale = savedScale === "large" ? "large" : "normal";
+  dom.html.setAttribute("data-font-scale", appState.fontScale);
 }
 
 function toggleFontScale() {
-  // Alterna entre 1 (normal) e 1.08 (um pouco maior)
-  state.fontScale = state.fontScale === 1 ? 1.08 : 1;
-  applyFontScale();
+  appState.fontScale = appState.fontScale === "normal" ? "large" : "normal";
+  dom.html.setAttribute("data-font-scale", appState.fontScale);
+  appState.uiStorage.set("ccb-font-scale", appState.fontScale);
 }
 
-function applyFontScale() {
-  document.documentElement.style.setProperty("font-size", `${100 * state.fontScale}%`);
-  if (el.fontScaleToggle) {
-    el.fontScaleToggle.setAttribute(
-      "aria-label",
-      state.fontScale === 1 ? "Aumentar fonte" : "Reduzir fonte"
-    );
-  }
-}
+function bindEvents() {
+  dom.themeToggle.addEventListener("click", toggleTheme);
+  dom.fontToggle.addEventListener("click", toggleFontScale);
 
-// Eventos
-function attachEvents() {
-  if (el.searchForm) {
-    el.searchForm.addEventListener("submit", handleSearchSubmit);
-  }
-  if (el.searchInput) {
-    el.searchInput.addEventListener("input", handleSearchInput);
-  }
-  if (el.clearSearch) {
-    el.clearSearch.addEventListener("click", clearSearch);
-  }
-  if (el.googleFallback) {
-    el.googleFallback.addEventListener("click", handleGoogleFallback);
-  }
-  if (el.filtersBento) {
-    el.filtersBento.addEventListener("click", handleFilterClick);
-  }
-  if (el.themeToggle) {
-    el.themeToggle.addEventListener("click", toggleTheme);
-  }
-  if (el.fontScaleToggle) {
-    el.fontScaleToggle.addEventListener("click", toggleFontScale);
-  }
+  dom.searchForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+    appState.query = dom.searchInput.value.trim().toLowerCase();
+    renderTools();
+  });
 
-  if (el.modalBackdrop) {
-    el.modalBackdrop.addEventListener("click", (event) => {
-      if (event.target === el.modalBackdrop) {
-        closeModal();
-      }
-    });
-  }
-  if (el.modalCloseBtn) {
-    el.modalCloseBtn.addEventListener("click", () => closeModal());
-  }
-  if (el.modalShareBtn) {
-    el.modalShareBtn.addEventListener("click", handleShareCurrentTool);
-  }
+  dom.searchInput.addEventListener("input", () => {
+    appState.query = dom.searchInput.value.trim().toLowerCase();
+    renderTools();
+  });
 
-  window.addEventListener("keydown", (event) => {
-    if (event.key === "Escape") {
+  dom.clearSearchButton.addEventListener("click", () => {
+    dom.searchInput.value = "";
+    appState.query = "";
+    renderTools();
+  });
+
+  dom.googleFallbackButton.addEventListener("click", () => {
+    const fallbackTerm = dom.searchInput.value.trim() || "ferramentas úteis produtividade IA design estudo";
+    const googleUrl = `https://www.google.com/search?q=${encodeURIComponent(fallbackTerm)}`;
+    window.open(googleUrl, "_blank", "noopener,noreferrer");
+  });
+
+  dom.journeyFilters.addEventListener("click", handleFilterClick);
+  dom.categoryFilters.addEventListener("click", handleFilterClick);
+
+  dom.modalClose.addEventListener("click", closeModal);
+  dom.modalBackdrop.addEventListener("click", (event) => {
+    if (event.target === dom.modalBackdrop) {
       closeModal();
     }
   });
 
-  window.addEventListener("popstate", (event) => {
-    if (event.state && event.state.modalId) {
-      const tool = state.ferramentas.find((f) => String(f.id) === String(event.state.modalId));
-      if (tool) {
-        openToolModal(tool, { pushState: false, fromPopstate: true });
-      } else {
-        closeModal({ fromPopstate: true });
-      }
-    } else {
-      closeModal({ fromPopstate: true });
+  dom.modalShare.addEventListener("click", shareCurrentTool);
+
+  window.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && !dom.modalBackdrop.hidden) {
+      closeModal();
+    }
+  });
+
+  window.addEventListener("popstate", () => {
+    const params = new URLSearchParams(window.location.search);
+    const modalId = params.get("modal");
+    if (!modalId) {
+      hideModalOnly();
+      return;
+    }
+    const matchedTool = appState.tools.find((tool) => String(tool.id) === String(modalId));
+    if (matchedTool) {
+      openModal(matchedTool, false);
     }
   });
 }
 
-// Busca
-function handleSearchSubmit(event) {
-  event.preventDefault();
-  if (!el.searchInput) return;
-  state.termoBusca = el.searchInput.value.trim();
-  renderResultadosFiltrados();
-}
-
-function handleSearchInput() {
-  if (!el.searchInput) return;
-  state.termoBusca = el.searchInput.value.trim();
-  renderResultadosFiltrados();
-}
-
-function clearSearch() {
-  if (!el.searchInput) return;
-  el.searchInput.value = "";
-  state.termoBusca = "";
-  renderResultadosFiltrados();
-}
-
-// Fallback: buscar no Google
-function handleGoogleFallback() {
-  const term = (el.searchInput && el.searchInput.value.trim()) || "";
-  const query = term || "ferramentas online gratuitas produtividade";
-  const url = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
-  window.open(url, "_blank", "noopener,noreferrer");
-}
-
-// Filtro por categoria via Bento Grid
-function handleFilterClick(event) {
-  const card = event.target.closest(".filter-card");
-  if (!card || !el.filtersBento) return;
-  const categoria = card.getAttribute("data-category") || "todos";
-  state.filtroCategoria = categoria;
-
-  // Atualiza classes visuais
-  const cards = el.filtersBento.querySelectorAll(".filter-card");
-  cards.forEach((c) => c.classList.remove("is-active"));
-  card.classList.add("is-active");
-
-  renderResultadosFiltrados();
-}
-
-// Fetch paralelo das fontes de dados
-async function fetchAllData() {
+async function loadData() {
   try {
-    const [dadosResp, parceirosResp, tagsResp] = await Promise.all([
+    const [toolsResponse, partnersResponse, tagsResponse] = await Promise.all([
       fetch("dados.json"),
       fetch("parceiros.json"),
       fetch("tags.json")
     ]);
 
-    if (!dadosResp.ok) throw new Error("Erro ao carregar dados.json");
-    if (!parceirosResp.ok) throw new Error("Erro ao carregar parceiros.json");
-    if (!tagsResp.ok) throw new Error("Erro ao carregar tags.json");
+    if (!toolsResponse.ok || !partnersResponse.ok || !tagsResponse.ok) {
+      throw new Error("Falha ao carregar os arquivos JSON do portal.");
+    }
 
-    const [dados, parceiros, tagsConfig] = await Promise.all([
-      dadosResp.json(),
-      parceirosResp.json(),
-      tagsResp.json()
+    const [tools, partners, tagStyles] = await Promise.all([
+      toolsResponse.json(),
+      partnersResponse.json(),
+      tagsResponse.json()
     ]);
 
-    state.ferramentas = Array.isArray(dados) ? dados : [];
-    state.parceiros = Array.isArray(parceiros) ? parceiros : [];
-    state.tagsConfig = typeof tagsConfig === "object" && tagsConfig !== null ? tagsConfig : {};
+    appState.tools = Array.isArray(tools) ? tools : [];
+    appState.partners = Array.isArray(partners) ? partners : [];
+    appState.tagStyles = tagStyles || {};
 
-    renderResultadosFiltrados();
-    renderParceiros();
-    atualizarHeroStats();
+    renderPartners();
+    renderTools();
+    hydrateModalFromUrl();
   } catch (error) {
-    console.error("[Café com Bytes] Erro ao carregar dados:", error);
-    if (el.resultsCount) {
-      el.resultsCount.textContent = "Não foi possível carregar a curadoria agora. Tente recarregar a página em alguns instantes.";
-    }
+    dom.resultCount.textContent = "Não foi possível carregar a curadoria no momento.";
+    dom.cardsGrid.innerHTML = "";
+    dom.emptyState.hidden = false;
   }
 }
 
-// Aplica filtros atuais e renderiza cards
-function renderResultadosFiltrados() {
-  if (!el.resultsGrid || !el.resultsEmpty || !el.resultsCount) return;
+function handleFilterClick(event) {
+  const trigger = event.target.closest("[data-filter-type]");
+  if (!trigger) return;
 
-  const termo = state.termoBusca.toLowerCase();
-  const cat = state.filtroCategoria;
+  const filterType = trigger.dataset.filterType;
+  const filterValue = trigger.dataset.filterValue;
 
-  const filtrados = state.ferramentas.filter((item) => {
-    if (cat !== "todos" && item.categoria !== cat) return false;
+  if (filterType === "categoria") {
+    appState.activeCategory = filterValue;
+    updateActiveState(dom.categoryFilters, trigger, ".chip");
+  }
 
-    if (!termo) return true;
+  if (filterType === "jornada") {
+    appState.activeJourney = filterValue;
+    updateActiveState(dom.journeyFilters, trigger, ".bento-card");
+  }
 
-    const campos = [
-      item.nome || "",
-      item.descricao || "",
-      item.dor_resolvida || "",
-      item.categoria || ""
-    ]
-      .join(" ")
-      .toLowerCase();
+  renderTools();
+}
 
-    return campos.includes(termo);
+function updateActiveState(parent, activeButton, selector) {
+  parent.querySelectorAll(selector).forEach((item) => item.classList.remove("is-active"));
+  activeButton.classList.add("is-active");
+}
+
+function renderPartners() {
+  dom.partnersList.innerHTML = "";
+  appState.partners.forEach((partner) => {
+    const item = document.createElement("li");
+    item.className = "partner-item";
+
+    const link = document.createElement("a");
+    link.href = partner.url;
+    link.target = "_blank";
+    link.rel = "noopener noreferrer";
+    link.textContent = partner.nome;
+
+    const description = document.createElement("p");
+    description.className = "partner-copy";
+    description.textContent = partner.descricao;
+
+    item.appendChild(link);
+    item.appendChild(description);
+    dom.partnersList.appendChild(item);
   });
+}
 
-  // Limpa grade
-  el.resultsGrid.innerHTML = "";
+function renderTools() {
+  const filteredTools = getFilteredTools();
+  dom.cardsGrid.innerHTML = "";
+  dom.resultCount.textContent = `${filteredTools.length} ferramenta${filteredTools.length === 1 ? "" : "s"} encontradas${filteredTools.length === 1 ? "" : "s"} para o recorte atual.`;
 
-  if (!filtrados.length) {
-    el.resultsEmpty.hidden = false;
-    el.resultsGrid.appendChild(el.resultsEmpty);
-    el.resultsCount.textContent = "0 ferramentas encontradas. Ajuste a busca ou filtre menos.";
+  if (!filteredTools.length) {
+    dom.emptyState.hidden = false;
     return;
   }
 
-  el.resultsEmpty.hidden = true;
-  const fragment = document.createDocumentFragment();
+  dom.emptyState.hidden = true;
 
-  filtrados.forEach((item) => {
-    const card = buildResultCard(item);
-    fragment.appendChild(card);
+  filteredTools.forEach((tool) => {
+    const card = createToolCard(tool);
+    dom.cardsGrid.appendChild(card);
   });
-
-  el.resultsGrid.appendChild(fragment);
-
-  const total = filtrados.length;
-  el.resultsCount.textContent =
-    total === 1 ? "1 ferramenta encontrada." : `${total} ferramentas encontradas.`;
 }
 
-// Cria card de resultado
-function buildResultCard(item) {
-  const { nome = "", categoria = "", emoji = "🛠️", dor_resolvida = "", descricao = "", url = "#" } = item;
-  const card = document.createElement("article");
-  card.className = "result-card";
-  card.setAttribute("tabindex", "0");
+function getFilteredTools() {
+  return appState.tools.filter((tool) => {
+    const matchesCategory = appState.activeCategory === "todos" || tool.categoria === appState.activeCategory;
+    const matchesJourney = matchesJourneyFilter(tool);
+    const matchesQuery = matchesSearch(tool);
+    return matchesCategory && matchesJourney && matchesQuery;
+  });
+}
 
-  const { cleanName, tags } = extractTagsFromName(nome);
+function matchesJourneyFilter(tool) {
+  if (appState.activeJourney === "todos") return true;
 
-  const header = document.createElement("header");
-  header.className = "result-header";
+  const bundle = [
+    tool.categoria,
+    tool.descricao,
+    tool.dor_resolvida,
+    tool.melhor_para,
+    tool.cenario,
+    tool.momento_da_jornada,
+    ...(tool.tags || [])
+  ].join(" ").toLowerCase();
+
+  const maps = {
+    organizar: ["organização", "produtividade", "planejamento", "tarefas", "coordenação", "rotina", "execução"],
+    escrever: ["escrita", "texto", "rascunho", "revisão", "síntese"],
+    pesquisar: ["pesquisa", "fontes", "referências", "investigação", "estudo"],
+    conteudo: ["criadores", "visual", "vídeo", "imagem", "marketing", "publicação", "apresentações"],
+    estudar: ["estudo", "pesquisa", "conhecimento", "referências", "aprendizado"],
+    ia: ["ia", "aceleração", "produtividade", "rascunho"],
+    automatizar: ["automação", "integrações", "fluxos", "otimização"],
+    equipe: ["equipe", "colaborativo", "reuniões", "trabalho remoto", "comunicação"],
+    simples: ["rápido", "grátis", "sem cadastro", "simples"],
+    agora: ["alto", "rápido", "resolução imediata", "urgência", "executar"]
+  };
+
+  const keywords = maps[appState.activeJourney] || [];
+  return keywords.some((keyword) => bundle.includes(keyword));
+}
+
+function matchesSearch(tool) {
+  if (!appState.query) return true;
+
+  const tagNamesFromTitle = extractTitleTags(tool.nome).tags.join(" ");
+  const searchable = [
+    tool.nome,
+    tool.categoria,
+    tool.dor_resolvida,
+    tool.descricao,
+    tool.melhor_para,
+    tool.cuidado,
+    tool.cenario,
+    tool.momento_da_jornada,
+    tool.nivel_de_urgencia,
+    ...(tool.tags || []),
+    tagNamesFromTitle
+  ]
+    .join(" ")
+    .toLowerCase();
+
+  return searchable.includes(appState.query);
+}
+
+function createToolCard(tool) {
+  const article = document.createElement("article");
+  article.className = "tool-card";
+
+  const parsed = extractTitleTags(tool.nome);
+  const allTags = mergeTags(parsed.tags, tool.tags || []);
+
+  const header = document.createElement("div");
+  header.className = "tool-header";
 
   const titleGroup = document.createElement("div");
-  titleGroup.className = "result-title-group";
+  titleGroup.className = "tool-title-group";
 
-  const titleLine = document.createElement("div");
-  titleLine.style.display = "flex";
-  titleLine.style.alignItems = "center";
-  titleLine.style.gap = "0.5rem";
+  const category = document.createElement("span");
+  category.className = "tool-category";
+  category.textContent = tool.categoria;
 
-  const emojiSpan = document.createElement("span");
-  emojiSpan.className = "result-emoji";
-  emojiSpan.textContent = emoji;
+  const title = document.createElement("h3");
+  title.className = "tool-name";
+  title.textContent = parsed.cleanTitle;
 
-  const nameEl = document.createElement("h3");
-  nameEl.className = "result-name";
-  nameEl.textContent = cleanName || "Ferramenta sem nome";
+  const dor = document.createElement("p");
+  dor.className = "tool-dor";
+  dor.textContent = tool.dor_resolvida;
 
-  titleLine.appendChild(emojiSpan);
-  titleLine.appendChild(nameEl);
+  titleGroup.appendChild(category);
+  titleGroup.appendChild(title);
+  titleGroup.appendChild(dor);
 
-  const categoryEl = document.createElement("p");
-  categoryEl.className = "result-category";
-  categoryEl.textContent = categoria ? categoria : "Categoria diversa";
-
-  titleGroup.appendChild(titleLine);
-  titleGroup.appendChild(categoryEl);
-
-  const quickActions = document.createElement("div");
-  quickActions.className = "result-actions";
-
-  const openBtn = document.createElement("button");
-  openBtn.type = "button";
-  openBtn.className = "btn btn-compact btn-outline";
-  openBtn.textContent = "Abrir";
-  openBtn.addEventListener("click", () => openToolModal(item));
-
-  const shareBtn = document.createElement("button");
-  shareBtn.type = "button";
-  shareBtn.className = "btn btn-compact btn-ghost";
-  shareBtn.textContent = "Compartilhar";
-  shareBtn.addEventListener("click", () => shareTool(item));
-
-  quickActions.appendChild(openBtn);
-  quickActions.appendChild(shareBtn);
+  const emoji = document.createElement("div");
+  emoji.className = "tool-emoji";
+  emoji.textContent = tool.emoji;
 
   header.appendChild(titleGroup);
-  header.appendChild(quickActions);
+  header.appendChild(emoji);
 
-  const dorEl = document.createElement("p");
-  dorEl.className = "result-dor";
-  dorEl.textContent = dor_resolvida || "Resumo não informado pela curadoria.";
+  const description = document.createElement("p");
+  description.className = "tool-description";
+  description.textContent = tool.descricao;
 
-  const descEl = document.createElement("p");
-  descEl.className = "result-desc";
-  descEl.textContent = descricao || "Descrição breve ainda não catalogada.";
+  const meta = document.createElement("div");
+  meta.className = "tool-meta";
 
-  const footer = document.createElement("footer");
-  footer.className = "result-footer";
+  meta.appendChild(createMetaBlock("Melhor para", tool.melhor_para));
+  meta.appendChild(createMetaBlock("Cuidado", tool.cuidado));
+  meta.appendChild(createMetaBlock("Cenário", tool.cenario));
 
-  const tagsContainer = document.createElement("div");
-  tagsContainer.className = "result-tags";
-
-  tags.forEach((tagText) => {
-    const tagEl = buildTagPill(tagText);
-    tagsContainer.appendChild(tagEl);
+  const tags = document.createElement("div");
+  tags.className = "tag-list";
+  allTags.forEach((tag) => {
+    tags.appendChild(createTagBadge(tag));
   });
+
+  const actions = document.createElement("div");
+  actions.className = "card-actions";
+
+  const openButton = document.createElement("button");
+  openButton.type = "button";
+  openButton.className = "btn btn-secondary";
+  openButton.textContent = "Ver contexto";
+  openButton.addEventListener("click", () => openModal(tool, true));
 
   const visitLink = document.createElement("a");
-  visitLink.href = url || "#";
+  visitLink.className = "btn btn-primary";
+  visitLink.href = tool.url;
   visitLink.target = "_blank";
   visitLink.rel = "noopener noreferrer";
-  visitLink.className = "btn btn-compact btn-primary";
-  visitLink.textContent = "Visitar site oficial";
+  visitLink.textContent = "Abrir site oficial";
 
-  footer.appendChild(tagsContainer);
-  footer.appendChild(visitLink);
+  actions.appendChild(openButton);
+  actions.appendChild(visitLink);
 
-  card.appendChild(header);
-  card.appendChild(dorEl);
-  card.appendChild(descEl);
-  card.appendChild(footer);
+  article.appendChild(header);
+  article.appendChild(description);
+  article.appendChild(meta);
+  article.appendChild(tags);
+  article.appendChild(actions);
 
-  // Acessibilidade: abrir modal ao pressionar Enter no card
-  card.addEventListener("keydown", (event) => {
-    if (event.key === "Enter") {
-      openToolModal(item);
-    }
-  });
-
-  return card;
+  return article;
 }
 
-// Extração de tags dentro de colchetes do título
-function extractTagsFromName(nome) {
-  const tags = [];
-  if (!nome) return { cleanName: "", tags };
+function createMetaBlock(label, value) {
+  const block = document.createElement("div");
+  block.className = "tool-meta-block";
 
-  const cleanName = nome.replace(/\[(.*?)\]/g, (match, inner) => {
-    if (inner) {
-      tags.push(inner.trim());
-    }
-    return "";
-  }).trim();
-
-  return { cleanName, tags };
-}
-
-// Monta badge baseado em tags.json
-function buildTagPill(tagText) {
   const span = document.createElement("span");
-  span.className = "tag-pill";
-  span.textContent = tagText;
+  span.className = "tool-meta-label";
+  span.textContent = label;
 
-  const config = state.tagsConfig[tagText] || state.tagsConfig["*"] || null;
-  if (config) {
-    if (config.textColor) span.style.color = config.textColor;
-    if (config.backgroundColor) span.style.backgroundColor = config.backgroundColor;
-    if (config.borderColor) span.style.borderColor = config.borderColor;
-    if (config.className) span.classList.add(config.className);
-  }
+  const text = document.createElement("p");
+  text.textContent = value;
 
-  return span;
+  block.appendChild(span);
+  block.appendChild(text);
+  return block;
 }
 
-// Hero stats
-function atualizarHeroStats() {
-  if (!state.ferramentas.length) return;
-
-  const total = state.ferramentas.length;
-  const categoriasSet = new Set(state.ferramentas.map((f) => f.categoria || "outras"));
-  const categorias = categoriasSet.size;
-
-  if (el.statNovas) {
-    el.statNovas.textContent = `${total}`;
+function extractTitleTags(title) {
+  const regex = /\[(.*?)\]/g;
+  const tags = [];
+  let match;
+  while ((match = regex.exec(title)) !== null) {
+    if (match[1]) tags.push(match[1].trim());
   }
-  if (el.statCategorias) {
-    el.statCategorias.textContent = `${categorias}`;
-  }
-  if (el.statAtualizacao) {
-    const now = new Date();
-    const formatado = now.toLocaleDateString("pt-BR", {
-      day: "2-digit",
-      month: "2-digit",
-      year: "numeric"
-    });
-    el.statAtualizacao.textContent = formatado;
-  }
+  const cleanTitle = title.replace(regex, "").replace(/\s{2,}/g, " ").trim();
+  return { cleanTitle, tags };
 }
 
-// Parceiros
-function renderParceiros() {
-  if (!el.partnersList) return;
-  el.partnersList.innerHTML = "";
+function mergeTags(tagsFromTitle, tagsFromField) {
+  const merged = [...tagsFromTitle, ...tagsFromField];
+  return [...new Set(merged)];
+}
 
-  if (!state.parceiros.length) {
-    const li = document.createElement("li");
-    li.textContent = "Nenhum parceiro cadastrado ainda.";
-    el.partnersList.appendChild(li);
-    return;
+function createTagBadge(tagName) {
+  const badge = document.createElement("span");
+  badge.className = "tag-badge";
+  badge.textContent = `[${tagName}]`;
+
+  const stylePreset = appState.tagStyles[tagName];
+  if (stylePreset) {
+    badge.style.color = stylePreset.textColor;
+    badge.style.backgroundColor = stylePreset.backgroundColor;
+    badge.style.borderColor = stylePreset.borderColor;
   }
 
-  const fragment = document.createDocumentFragment();
+  return badge;
+}
 
-  state.parceiros.forEach((p) => {
-    const li = document.createElement("li");
-    li.className = "partner-item";
+function openModal(tool, pushState = true) {
+  appState.currentTool = tool;
+  const parsed = extractTitleTags(tool.nome);
+  const allTags = mergeTags(parsed.tags, tool.tags || []);
 
-    const a = document.createElement("a");
-    a.href = p.url || "#";
-    a.target = "_blank";
-    a.rel = "noopener noreferrer";
-    a.textContent = p.nome || p.url || "Parceiro sem nome";
-
-    li.appendChild(a);
-
-    if (p.descricao) {
-      const span = document.createElement("span");
-      span.style.display = "block";
-      span.style.fontSize = "0.75rem";
-      span.style.color = "var(--color-text-faint)";
-      span.textContent = p.descricao;
-      li.appendChild(span);
-    }
-
-    fragment.appendChild(li);
+  dom.modalCategory.textContent = tool.categoria;
+  dom.modalTitle.textContent = parsed.cleanTitle;
+  dom.modalDor.textContent = tool.dor_resolvida;
+  dom.modalDescription.textContent = tool.descricao;
+  dom.modalBestFor.textContent = tool.melhor_para;
+  dom.modalScenario.textContent = tool.cenario;
+  dom.modalCuidado.textContent = tool.cuidado;
+  dom.modalJourney.textContent = tool.momento_da_jornada;
+  dom.modalUrgency.textContent = tool.nivel_de_urgencia;
+  dom.modalVisitLink.href = tool.url;
+  dom.modalTags.innerHTML = "";
+  allTags.forEach((tag) => {
+    dom.modalTags.appendChild(createTagBadge(tag));
   });
 
-  el.partnersList.appendChild(fragment);
-}
-
-// Modal de detalhes
-function openToolModal(item, options = {}) {
-  if (!el.modalBackdrop || !el.modal || !item) return;
-  const opts = { pushState: true, fromPopstate: false, ...options };
-
-  const { nome = "", categoria = "", dor_resolvida = "", descricao = "", url = "#" } = item;
-  const { cleanName, tags } = extractTagsFromName(nome);
-
-  el.modalTitle.textContent = cleanName || "Ferramenta";
-  el.modalCategory.textContent = categoria || "Categoria diversa";
-  el.modalDor.textContent = dor_resolvida || "";
-  el.modalDescricao.textContent = descricao || "";
-  el.modalTags.innerHTML = "";
-
-  tags.forEach((t) => {
-    const tagEl = buildTagPill(t);
-    el.modalTags.appendChild(tagEl);
-  });
-
-  el.modalVisitLink.href = url || "#";
-
-  el.modalBackdrop.hidden = false;
+  dom.modalBackdrop.hidden = false;
   document.body.style.overflow = "hidden";
 
-  if (opts.pushState) {
-    const newUrl = new URL(window.location.href);
-    newUrl.searchParams.set("modal", String(item.id));
-    window.history.pushState({ modalId: String(item.id) }, "", newUrl.toString());
+  if (pushState) {
+    const url = new URL(window.location.href);
+    url.searchParams.set("modal", tool.id);
+    window.history.pushState({ modal: tool.id }, "", url);
   }
 }
 
-function closeModal(options = {}) {
-  const opts = { fromPopstate: false, ...options };
-
-  if (!el.modalBackdrop) return;
-  if (el.modalBackdrop.hidden) return;
-
-  el.modalBackdrop.hidden = true;
-  document.body.style.overflow = "";
-
-  if (!opts.fromPopstate) {
-    const url = new URL(window.location.href);
-    if (url.searchParams.has("modal")) {
-      url.searchParams.delete("modal");
-      window.history.pushState({}, "", url.toString());
-    }
+function closeModal() {
+  hideModalOnly();
+  const url = new URL(window.location.href);
+  if (url.searchParams.has("modal")) {
+    url.searchParams.delete("modal");
+    window.history.pushState({}, "", url);
   }
+}
+
+function hideModalOnly() {
+  dom.modalBackdrop.hidden = true;
+  document.body.style.overflow = "";
+  appState.currentTool = null;
 }
 
 function hydrateModalFromUrl() {
-  const url = new URL(window.location.href);
-  const modalId = url.searchParams.get("modal");
-  if (!modalId || !state.ferramentas.length) return;
+  const params = new URLSearchParams(window.location.search);
+  const modalId = params.get("modal");
+  if (!modalId) return;
 
-  const tool = state.ferramentas.find((f) => String(f.id) === String(modalId));
+  const tool = appState.tools.find((item) => String(item.id) === String(modalId));
   if (tool) {
-    openToolModal(tool, { pushState: false });
+    openModal(tool, false);
   }
 }
 
-// Compartilhamento
-function shareTool(item) {
-  const url = buildToolShareUrl(item);
-  const title = item.nome || "Ferramenta";
-  const text = `Descobri essa ferramenta no Café com Bytes: ${title}`;
+async function shareCurrentTool() {
+  if (!appState.currentTool) return;
+
+  const parsed = extractTitleTags(appState.currentTool.nome);
+  const shareUrl = new URL(window.location.href);
+  shareUrl.searchParams.set("modal", appState.currentTool.id);
+
+  const payload = {
+    title: `${parsed.cleanTitle} — Café Com Bytes`,
+    text: `${parsed.cleanTitle}: ${appState.currentTool.dor_resolvida}`,
+    url: shareUrl.toString()
+  };
 
   if (navigator.share) {
-    navigator
-      .share({ title, text, url })
-      .catch((error) => {
-        console.warn("Share cancelado ou não suportado:", error);
-      });
-  } else if (navigator.clipboard && navigator.clipboard.writeText) {
-    navigator.clipboard
-      .writeText(url)
-      .then(() => {
-        alert("Link copiado para a área de transferência.");
-      })
-      .catch(() => {
-        window.prompt("Copie o link abaixo:", url);
-      });
-  } else {
-    window.prompt("Copie o link abaixo:", url);
+    try {
+      await navigator.share(payload);
+      return;
+    } catch (error) {
+      copyShareUrl(payload.url);
+      return;
+    }
   }
+
+  copyShareUrl(payload.url);
 }
 
-function buildToolShareUrl(item) {
-  const baseUrl = window.location.origin + window.location.pathname;
-  const url = new URL(baseUrl);
-  if (item && item.id != null) {
-    url.searchParams.set("modal", String(item.id));
+function copyShareUrl(url) {
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(url).then(() => {
+      alert("Link copiado para a área de transferência.");
+    }).catch(() => {
+      window.prompt("Copie o link abaixo:", url);
+    });
+    return;
   }
-  return url.toString();
-}
 
-function handleShareCurrentTool() {
-  const currentId = getCurrentModalIdFromUrl();
-  if (!currentId) return;
-
-  const tool = state.ferramentas.find((f) => String(f.id) === String(currentId));
-  if (!tool) return;
-
-  shareTool(tool);
-}
-
-function getCurrentModalIdFromUrl() {
-  const url = new URL(window.location.href);
-  return url.searchParams.get("modal");
-}
-
-// Footer
-function updateFooterYear() {
-  if (!el.footerYear) return;
-  const year = new Date().getFullYear();
-  el.footerYear.textContent = String(year);
+  window.prompt("Copie o link abaixo:", url);
 }
