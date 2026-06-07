@@ -1,67 +1,296 @@
 {
-  "Grátis": {
-    "textColor": "#184332",
-    "backgroundColor": "rgba(182, 228, 203, 0.88)",
-    "borderColor": "rgba(72, 132, 98, 0.42)"
+  "Gratuito": {
+    "label": "Gratuito",
+    "textColor": "#ecfff4",
+    "backgroundColor": "rgba(34, 92, 58, 0.18)",
+    "borderColor": "rgba(52, 138, 84, 0.42)",
+    "className": "tag-badge tag-badge--free"
   },
-  "Freemium": {
-    "textColor": "#5c3a15",
-    "backgroundColor": "rgba(241, 214, 173, 0.9)",
-    "borderColor": "rgba(175, 122, 54, 0.38)"
-  },
-  "IA": {
-    "textColor": "#2f2459",
-    "backgroundColor": "rgba(209, 196, 244, 0.9)",
-    "borderColor": "rgba(108, 83, 176, 0.38)"
-  },
-  "Sem Cadastro": {
-    "textColor": "#27435a",
-    "backgroundColor": "rgba(189, 220, 238, 0.9)",
-    "borderColor": "rgba(81, 132, 168, 0.36)"
-  },
-  "Rápido": {
-    "textColor": "#5b301f",
-    "backgroundColor": "rgba(239, 197, 176, 0.9)",
-    "borderColor": "rgba(175, 103, 75, 0.36)"
-  },
-  "Colaborativo": {
-    "textColor": "#24464a",
-    "backgroundColor": "rgba(185, 225, 221, 0.9)",
-    "borderColor": "rgba(66, 132, 126, 0.36)"
-  },
-  "Visual": {
-    "textColor": "#4f315b",
-    "backgroundColor": "rgba(228, 204, 234, 0.9)",
-    "borderColor": "rgba(153, 108, 165, 0.34)"
-  },
-  "Produtividade": {
-    "textColor": "#384223",
-    "backgroundColor": "rgba(213, 227, 182, 0.9)",
-    "borderColor": "rgba(121, 145, 69, 0.34)"
+  "Sem Instalação": {
+    "label": "Sem Instalação",
+    "textColor": "#eef8ff",
+    "backgroundColor": "rgba(66, 110, 146, 0.18)",
+    "borderColor": "rgba(80, 138, 186, 0.42)",
+    "className": "tag-badge tag-badge--cloud"
   },
   "Pesquisa": {
-    "textColor": "#283f5a",
-    "backgroundColor": "rgba(197, 216, 236, 0.9)",
-    "borderColor": "rgba(90, 126, 168, 0.35)"
+    "label": "Pesquisa",
+    "textColor": "#f4f0ff",
+    "backgroundColor": "rgba(99, 80, 145, 0.2)",
+    "borderColor": "rgba(126, 104, 184, 0.42)",
+    "className": "tag-badge tag-badge--research"
   },
-  "Criadores": {
-    "textColor": "#5a2a44",
-    "backgroundColor": "rgba(238, 202, 222, 0.9)",
-    "borderColor": "rgba(174, 102, 142, 0.36)"
+  "IA": {
+    "label": "IA",
+    "textColor": "#fff1fb",
+    "backgroundColor": "rgba(143, 84, 122, 0.2)",
+    "borderColor": "rgba(181, 102, 154, 0.42)",
+    "className": "tag-badge tag-badge--ai"
+  },
+  "Design rápido": {
+    "label": "Design rápido",
+    "textColor": "#fff6ed",
+    "backgroundColor": "rgba(150, 99, 61, 0.2)",
+    "borderColor": "rgba(188, 122, 72, 0.42)",
+    "className": "tag-badge tag-badge--speed"
+  },
+  "Pro em recursos avançados": {
+    "label": "Pro em recursos avançados",
+    "textColor": "#fff3ee",
+    "backgroundColor": "rgba(138, 88, 71, 0.2)",
+    "borderColor": "rgba(178, 110, 88, 0.42)",
+    "className": "tag-badge tag-badge--pro"
+  },
+  "Organização": {
+    "label": "Organização",
+    "textColor": "#effffb",
+    "backgroundColor": "rgba(59, 115, 105, 0.18)",
+    "borderColor": "rgba(77, 150, 135, 0.42)",
+    "className": "tag-badge tag-badge--organize"
+  },
+  "Workspace": {
+    "label": "Workspace",
+    "textColor": "#f5f6ff",
+    "backgroundColor": "rgba(76, 90, 146, 0.18)",
+    "borderColor": "rgba(96, 112, 182, 0.4)",
+    "className": "tag-badge tag-badge--workspace"
+  },
+  "Kanban": {
+    "label": "Kanban",
+    "textColor": "#eef8ff",
+    "backgroundColor": "rgba(62, 101, 139, 0.18)",
+    "borderColor": "rgba(79, 128, 176, 0.42)",
+    "className": "tag-badge tag-badge--kanban"
+  },
+  "Visual": {
+    "label": "Visual",
+    "textColor": "#fff7ef",
+    "backgroundColor": "rgba(145, 108, 63, 0.18)",
+    "borderColor": "rgba(184, 136, 75, 0.42)",
+    "className": "tag-badge tag-badge--visual"
   },
   "Equipe": {
-    "textColor": "#2f3b51",
-    "backgroundColor": "rgba(210, 217, 232, 0.9)",
-    "borderColor": "rgba(111, 127, 159, 0.35)"
+    "label": "Equipe",
+    "textColor": "#eefdf9",
+    "backgroundColor": "rgba(53, 112, 96, 0.18)",
+    "borderColor": "rgba(72, 145, 124, 0.42)",
+    "className": "tag-badge tag-badge--team"
+  },
+  "Operação": {
+    "label": "Operação",
+    "textColor": "#fff6ef",
+    "backgroundColor": "rgba(142, 94, 59, 0.18)",
+    "borderColor": "rgba(176, 116, 72, 0.42)",
+    "className": "tag-badge tag-badge--ops"
+  },
+  "Arquivos": {
+    "label": "Arquivos",
+    "textColor": "#eef7ff",
+    "backgroundColor": "rgba(64, 102, 134, 0.18)",
+    "borderColor": "rgba(82, 130, 170, 0.42)",
+    "className": "tag-badge tag-badge--files"
+  },
+  "Colaboração": {
+    "label": "Colaboração",
+    "textColor": "#f1fbff",
+    "backgroundColor": "rgba(58, 108, 122, 0.18)",
+    "borderColor": "rgba(77, 140, 159, 0.42)",
+    "className": "tag-badge tag-badge--collab"
+  },
+  "Escrita": {
+    "label": "Escrita",
+    "textColor": "#fff3fa",
+    "backgroundColor": "rgba(135, 80, 112, 0.18)",
+    "borderColor": "rgba(170, 101, 142, 0.42)",
+    "className": "tag-badge tag-badge--writing"
+  },
+  "Análise leve": {
+    "label": "Análise leve",
+    "textColor": "#f3fbff",
+    "backgroundColor": "rgba(57, 107, 123, 0.18)",
+    "borderColor": "rgba(77, 139, 159, 0.42)",
+    "className": "tag-badge tag-badge--analysis"
+  },
+  "Revisão": {
+    "label": "Revisão",
+    "textColor": "#fff8f1",
+    "backgroundColor": "rgba(144, 102, 66, 0.18)",
+    "borderColor": "rgba(182, 129, 81, 0.42)",
+    "className": "tag-badge tag-badge--review"
+  },
+  "Inglês": {
+    "label": "Inglês",
+    "textColor": "#eef7ff",
+    "backgroundColor": "rgba(65, 98, 134, 0.18)",
+    "borderColor": "rgba(85, 127, 173, 0.42)",
+    "className": "tag-badge tag-badge--lang"
+  },
+  "Clareza": {
+    "label": "Clareza",
+    "textColor": "#f7fdf7",
+    "backgroundColor": "rgba(76, 111, 70, 0.18)",
+    "borderColor": "rgba(99, 144, 92, 0.42)",
+    "className": "tag-badge tag-badge--clarity"
+  },
+  "Texto": {
+    "label": "Texto",
+    "textColor": "#fff5f1",
+    "backgroundColor": "rgba(136, 89, 68, 0.18)",
+    "borderColor": "rgba(175, 113, 86, 0.42)",
+    "className": "tag-badge tag-badge--text"
+  },
+  "Tradução": {
+    "label": "Tradução",
+    "textColor": "#f1f4ff",
+    "backgroundColor": "rgba(80, 88, 139, 0.18)",
+    "borderColor": "rgba(106, 117, 180, 0.42)",
+    "className": "tag-badge tag-badge--translation"
+  },
+  "Precisão": {
+    "label": "Precisão",
+    "textColor": "#f4fbff",
+    "backgroundColor": "rgba(56, 111, 126, 0.18)",
+    "borderColor": "rgba(74, 143, 162, 0.42)",
+    "className": "tag-badge tag-badge--precision"
+  },
+  "Rascunho": {
+    "label": "Rascunho",
+    "textColor": "#fff4f9",
+    "backgroundColor": "rgba(139, 84, 108, 0.18)",
+    "borderColor": "rgba(175, 104, 136, 0.42)",
+    "className": "tag-badge tag-badge--draft"
+  },
+  "Leitura longa": {
+    "label": "Leitura longa",
+    "textColor": "#f5f3ff",
+    "backgroundColor": "rgba(94, 83, 144, 0.18)",
+    "borderColor": "rgba(121, 107, 183, 0.42)",
+    "className": "tag-badge tag-badge--reading"
+  },
+  "Apresentações": {
+    "label": "Apresentações",
+    "textColor": "#fff6ef",
+    "backgroundColor": "rgba(145, 102, 63, 0.18)",
+    "borderColor": "rgba(183, 129, 80, 0.42)",
+    "className": "tag-badge tag-badge--slides"
+  },
+  "Rápido": {
+    "label": "Rápido",
+    "textColor": "#f7fff6",
+    "backgroundColor": "rgba(74, 112, 68, 0.18)",
+    "borderColor": "rgba(96, 143, 88, 0.42)",
+    "className": "tag-badge tag-badge--fast"
+  },
+  "Mapeamento": {
+    "label": "Mapeamento",
+    "textColor": "#eefcff",
+    "backgroundColor": "rgba(55, 110, 122, 0.18)",
+    "borderColor": "rgba(74, 142, 158, 0.42)",
+    "className": "tag-badge tag-badge--mapping"
+  },
+  "Fluxos": {
+    "label": "Fluxos",
+    "textColor": "#eef7ff",
+    "backgroundColor": "rgba(62, 100, 136, 0.18)",
+    "borderColor": "rgba(83, 132, 177, 0.42)",
+    "className": "tag-badge tag-badge--flows"
+  },
+  "Leve": {
+    "label": "Leve",
+    "textColor": "#f8fcff",
+    "backgroundColor": "rgba(84, 106, 126, 0.18)",
+    "borderColor": "rgba(109, 138, 165, 0.42)",
+    "className": "tag-badge tag-badge--light"
+  },
+  "Vídeo": {
+    "label": "Vídeo",
+    "textColor": "#fff3ef",
+    "backgroundColor": "rgba(140, 88, 69, 0.18)",
+    "borderColor": "rgba(177, 109, 86, 0.42)",
+    "className": "tag-badge tag-badge--video"
+  },
+  "Assíncrono": {
+    "label": "Assíncrono",
+    "textColor": "#f0fbff",
+    "backgroundColor": "rgba(56, 111, 121, 0.18)",
+    "borderColor": "rgba(76, 144, 157, 0.42)",
+    "className": "tag-badge tag-badge--async"
+  },
+  "Edição rápida": {
+    "label": "Edição rápida",
+    "textColor": "#fff6ee",
+    "backgroundColor": "rgba(146, 101, 61, 0.18)",
+    "borderColor": "rgba(184, 128, 78, 0.42)",
+    "className": "tag-badge tag-badge--edit"
+  },
+  "Recorte": {
+    "label": "Recorte",
+    "textColor": "#fdf5ff",
+    "backgroundColor": "rgba(123, 86, 139, 0.18)",
+    "borderColor": "rgba(154, 108, 175, 0.42)",
+    "className": "tag-badge tag-badge--cutout"
+  },
+  "Interface": {
+    "label": "Interface",
+    "textColor": "#eff6ff",
+    "backgroundColor": "rgba(68, 98, 139, 0.18)",
+    "borderColor": "rgba(90, 128, 183, 0.42)",
+    "className": "tag-badge tag-badge--interface"
+  },
+  "Desenvolvimento": {
+    "label": "Desenvolvimento",
+    "textColor": "#f2f8ff",
+    "backgroundColor": "rgba(68, 97, 128, 0.18)",
+    "borderColor": "rgba(90, 129, 170, 0.42)",
+    "className": "tag-badge tag-badge--dev"
+  },
+  "Landing pages": {
+    "label": "Landing pages",
+    "textColor": "#fff6ef",
+    "backgroundColor": "rgba(147, 101, 63, 0.18)",
+    "borderColor": "rgba(184, 128, 79, 0.42)",
+    "className": "tag-badge tag-badge--landing"
+  },
+  "Publicação": {
+    "label": "Publicação",
+    "textColor": "#f5fff6",
+    "backgroundColor": "rgba(72, 114, 70, 0.18)",
+    "borderColor": "rgba(94, 145, 90, 0.42)",
+    "className": "tag-badge tag-badge--publish"
   },
   "Automação": {
-    "textColor": "#2d4a34",
-    "backgroundColor": "rgba(195, 225, 204, 0.9)",
-    "borderColor": "rgba(92, 143, 103, 0.34)"
+    "label": "Automação",
+    "textColor": "#f0fbfb",
+    "backgroundColor": "rgba(56, 110, 108, 0.18)",
+    "borderColor": "rgba(75, 142, 139, 0.42)",
+    "className": "tag-badge tag-badge--automation"
   },
-  "Marketing": {
-    "textColor": "#5c3821",
-    "backgroundColor": "rgba(239, 211, 187, 0.9)",
-    "borderColor": "rgba(175, 123, 83, 0.34)"
+  "Integrações": {
+    "label": "Integrações",
+    "textColor": "#f1fbff",
+    "backgroundColor": "rgba(60, 109, 122, 0.18)",
+    "borderColor": "rgba(78, 141, 157, 0.42)",
+    "className": "tag-badge tag-badge--integration"
+  },
+  "Reuniões": {
+    "label": "Reuniões",
+    "textColor": "#f3f6ff",
+    "backgroundColor": "rgba(78, 89, 139, 0.18)",
+    "borderColor": "rgba(104, 118, 181, 0.42)",
+    "className": "tag-badge tag-badge--meetings"
+  },
+  "Simples": {
+    "label": "Simples",
+    "textColor": "#f8fcf7",
+    "backgroundColor": "rgba(86, 112, 78, 0.18)",
+    "borderColor": "rgba(109, 145, 98, 0.42)",
+    "className": "tag-badge tag-badge--simple"
+  },
+  "*": {
+    "label": "Tag",
+    "textColor": "#f6f1eb",
+    "backgroundColor": "rgba(109, 93, 79, 0.18)",
+    "borderColor": "rgba(132, 111, 94, 0.34)",
+    "className": "tag-badge tag-badge--default"
   }
 }
