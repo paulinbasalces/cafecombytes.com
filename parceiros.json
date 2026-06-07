@@ -1,22 +1,22 @@
 [
   {
     "nome": "0800 Eu Vou",
-    "descricao": "Portal com foco em oportunidades acessíveis e benefícios para o público brasileiro.",
+    "descricao": "Curadoria de oportunidades, utilidade pública e caminhos práticos para quem quer avançar sem complicação.",
     "url": "https://0800euvou.com"
   },
   {
     "nome": "Estudar Online",
-    "descricao": "Hub de recursos para estudos online, cursos e trilhas de aprendizado.",
+    "descricao": "Portal focado em estudo digital, cursos, aprendizado contínuo e caminhos de formação acessíveis.",
     "url": "https://estudaronline.org"
   },
   {
-    "nome": "Trabalho & Futuro",
-    "descricao": "Conteúdos e guias sobre carreira, emprego remoto e futuro do trabalho.",
+    "nome": "Trabalho e Futuro",
+    "descricao": "Conteúdos sobre carreira, produtividade, trabalho remoto, renda e transformações do mercado.",
     "url": "https://trabalhoefuturo.com"
   },
   {
     "nome": "Viajar com Seguro",
-    "descricao": "Portal focado em planejamento de viagens e seguros para diferentes perfis de viajantes.",
+    "descricao": "Curadoria prática para planejamento de viagens, segurança, documentação e decisões com mais clareza.",
     "url": "https://viajarcomseguro.com"
   }
 ]
