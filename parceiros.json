@@ -1,0 +1,22 @@
+[
+  {
+    "nome": "0800 Eu Vou",
+    "descricao": "Portal com foco em oportunidades acessíveis e benefícios para o público brasileiro.",
+    "url": "https://0800euvou.com"
+  },
+  {
+    "nome": "Estudar Online",
+    "descricao": "Hub de recursos para estudos online, cursos e trilhas de aprendizado.",
+    "url": "https://estudaronline.org"
+  },
+  {
+    "nome": "Trabalho & Futuro",
+    "descricao": "Conteúdos e guias sobre carreira, emprego remoto e futuro do trabalho.",
+    "url": "https://trabalhoefuturo.com"
+  },
+  {
+    "nome": "Viajar com Seguro",
+    "descricao": "Portal focado em planejamento de viagens e seguros para diferentes perfis de viajantes.",
+    "url": "https://viajarcomseguro.com"
+  }
+]

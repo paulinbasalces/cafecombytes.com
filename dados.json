@@ -1,0 +1,218 @@
+[
+  {
+    "id": 1,
+    "nome": "Photopea [Gratuito] [Sem Login]",
+    "categoria": "imagem",
+    "emoji": "🖼️",
+    "dor_resolvida": "Editar imagens em nível quase Photoshop diretamente no navegador, sem instalar nada.",
+    "descricao": "Editor avançado de fotos e gráficos vetoriais que abre PSD, XCF e outros formatos profissionais, ideal para quem precisa editar rápido em qualquer máquina.",
+    "url": "https://www.photopea.com"
+  },
+  {
+    "id": 2,
+    "nome": "Removal.AI [Remove Fundo] [Free Tier]",
+    "categoria": "imagem",
+    "emoji": "✂️",
+    "dor_resolvida": "Remover o fundo de imagens em segundos, sem conhecimento de edição.",
+    "descricao": "Remove o fundo de fotos com um clique e permite baixar com fundo transparente ou personalizado, útil para e-commerce e social media.",
+    "url": "https://removal.ai"
+  },
+  {
+    "id": 3,
+    "nome": "Adobe Express BG Remover [Free Tier]",
+    "categoria": "imagem",
+    "emoji": "🧼",
+    "dor_resolvida": "Criar recortes limpos de fotos para montagens, posts e apresentações.",
+    "descricao": "Ferramenta online da Adobe que identifica e apaga automaticamente o fundo, permitindo baixar PNG transparente ou seguir editando no editor Express.",
+    "url": "https://www.adobe.com/express/feature/image/remove-background"
+  },
+  {
+    "id": 4,
+    "nome": "Canva BG Remover [Free Try]",
+    "categoria": "imagem",
+    "emoji": "🎨",
+    "dor_resolvida": "Remover fundo de imagem e aplicar rapidamente em artes prontas.",
+    "descricao": "Ferramenta de remoção de fundo integrada ao editor de designs do Canva, com workflow simples para quem já faz posts, apresentações e artes na plataforma.",
+    "url": "https://www.canva.com/features/background-remover/"
+  },
+  {
+    "id": 5,
+    "nome": "Picsart BG Remover [IA] [Free Tier]",
+    "categoria": "imagem",
+    "emoji": "🧩",
+    "dor_resolvida": "Remover fundo com IA e seguir editando a imagem em alta resolução.",
+    "descricao": "Remove o fundo com inteligência artificial em poucos segundos e permite salvar em alta qualidade para uso digital e impressão.",
+    "url": "https://picsart.com/background-remover/"
+  },
+  {
+    "id": 6,
+    "nome": "Curadoria Prompt de Escrita [IA Generativa]",
+    "categoria": "escrita",
+    "emoji": "✍️",
+    "dor_resolvida": "Travar na hora de ter ideias de textos, posts ou roteiros.",
+    "descricao": "Coleção de prompts prontos para escrita criativa, posts, e-mails e roteiros, organizada por objetivo e tom de voz.",
+    "url": "#"
+  },
+  {
+    "id": 7,
+    "nome": "Gerador de Títulos Magnéticos [SEO] [Gratuito]",
+    "categoria": "escrita",
+    "emoji": "📰",
+    "dor_resolvida": "Criar títulos chamativos para blogs, vídeos e newsletters sem perder tempo.",
+    "descricao": "Ferramenta que gera variações de títulos otimizados para cliques a partir de uma frase simples, com foco em blog, YouTube e e-mail marketing.",
+    "url": "#"
+  },
+  {
+    "id": 8,
+    "nome": "Organizador de Tarefas Minimalista [Sem Login]",
+    "categoria": "produtividade",
+    "emoji": "✅",
+    "dor_resolvida": "Perder tarefas importantes em listas caóticas ou apps excessivamente complexos.",
+    "descricao": "To‑do list minimalista que funciona direto no navegador, com listas simples, arrastar e soltar e visão diária sem distrações.",
+    "url": "#"
+  },
+  {
+    "id": 9,
+    "nome": "Planejador Semanal em Kanban [Free]",
+    "categoria": "produtividade",
+    "emoji": "📅",
+    "dor_resolvida": "Dificuldade em visualizar a semana em blocos de foco e entregas.",
+    "descricao": "Quadro estilo Kanban para organizar a semana em colunas (segunda a domingo), ideal para freelancers e estudos.",
+    "url": "#"
+  },
+  {
+    "id": 10,
+    "nome": "Bloco de Notas Instantâneo [Sem Cadastro]",
+    "categoria": "produtividade",
+    "emoji": "📝",
+    "dor_resolvida": "Criar notas rápidas sem precisar abrir um documento pesado ou fazer login.",
+    "descricao": "Página de notas super leve, com salvamento automático no navegador e suporte a Markdown básico.",
+    "url": "#"
+  },
+  {
+    "id": 11,
+    "nome": "Gerador de Flashcards [Estudos] [Free Tier]",
+    "categoria": "estudos",
+    "emoji": "📚",
+    "dor_resolvida": "Estudar teoria sem revisar de forma ativa, esquecendo rápido os conceitos.",
+    "descricao": "Transforma listas de perguntas e respostas em flashcards com sistema de repetição espaçada para memorização eficiente.",
+    "url": "#"
+  },
+  {
+    "id": 12,
+    "nome": "Resumidor de Textos Longos [IA] [Português]",
+    "categoria": "estudos",
+    "emoji": "🧠",
+    "dor_resolvida": "Ler artigos extensos quando falta tempo para absorver tudo.",
+    "descricao": "Recebe textos extensos e gera resumos objetivos, bullets e perguntas de revisão em português.",
+    "url": "#"
+  },
+  {
+    "id": 13,
+    "nome": "Transcritor de Áudio Online [Free Tier]",
+    "categoria": "audio",
+    "emoji": "🎧",
+    "dor_resolvida": "Transformar reuniões, aulas ou entrevistas gravadas em texto pesquisável.",
+    "descricao": "Envia arquivos de áudio ou vídeo e retorna transcrição automática com marcação de tempo, ideal para notas e resumos.",
+    "url": "#"
+  },
+  {
+    "id": 14,
+    "nome": "Limpador de Ruído em Áudio [IA]",
+    "categoria": "audio",
+    "emoji": "🔊",
+    "dor_resolvida": "Gravações com ruído de fundo atrapalhando a compreensão.",
+    "descricao": "Remove ruído de fundo de áudios gravados em ambientes não tratados, ideal para aulas, podcasts e entrevistas remotas.",
+    "url": "#"
+  },
+  {
+    "id": 15,
+    "nome": "Legendador Automático para Vídeos [Free Tier]",
+    "categoria": "video",
+    "emoji": "🎬",
+    "dor_resolvida": "Adicionar legendas manualmente em vídeos para redes sociais.",
+    "descricao": "Gera legendas automáticas em português e exporta vídeos prontos para TikTok, Reels e YouTube Shorts.",
+    "url": "#"
+  },
+  {
+    "id": 16,
+    "nome": "Cortador de Vídeo Online [Sem Marca d’Água]",
+    "categoria": "video",
+    "emoji": "✂️",
+    "dor_resolvida": "Cortar rapidamente trechos de vídeo sem instalar programas pesados.",
+    "descricao": "Ferramenta simples de corte e recorte de vídeo no navegador, com foco em rapidez e exportação sem marca d’água.",
+    "url": "#"
+  },
+  {
+    "id": 17,
+    "nome": "Conversor de Formatos PDF & Imagem [Free]",
+    "categoria": "utilidades",
+    "emoji": "📂",
+    "dor_resolvida": "Converter entre PDF, JPG, PNG e outros formatos sem perder qualidade.",
+    "descricao": "Coleção de mini ferramentas para unir, dividir, comprimir e converter arquivos PDF e imagens.",
+    "url": "#"
+  },
+  {
+    "id": 18,
+    "nome": "Gerador de Senhas Fortes [Sem Armazenar Dados]",
+    "categoria": "utilidades",
+    "emoji": "🔐",
+    "dor_resolvida": "Reutilizar as mesmas senhas fracas em vários serviços.",
+    "descricao": "Gera senhas aleatórias fortes com diferentes níveis de complexidade, sem enviar dados para servidor.",
+    "url": "#"
+  },
+  {
+    "id": 19,
+    "nome": "Cronômetro Pomodoro Online [Foco]",
+    "categoria": "produtividade",
+    "emoji": "⏱️",
+    "dor_resolvida": "Manter foco em blocos de tempo sem se perder em redes sociais.",
+    "descricao": "Timer de foco com ciclos Pomodoro configuráveis, som opcional e relatório básico de sessões concluídas.",
+    "url": "#"
+  },
+  {
+    "id": 20,
+    "nome": "Mural de Ideias Visuais [Mindmap] [Free Tier]",
+    "categoria": "produtividade",
+    "emoji": "🗺️",
+    "dor_resolvida": "Dificuldade em visualizar conexões entre ideias e projetos.",
+    "descricao": "Quadro colaborativo online para mapear ideias, fluxos e processos usando cartões e setas.",
+    "url": "#"
+  },
+  {
+    "id": 21,
+    "nome": "Checklist de Viagem Interativa [Gratuito]",
+    "categoria": "utilidades",
+    "emoji": "🧳",
+    "dor_resolvida": "Esquecer itens importantes antes de viagens curtas ou longas.",
+    "descricao": "Checklist adaptável por tipo de viagem (trabalho, lazer, internacional) com sugestões automáticas.",
+    "url": "#"
+  },
+  {
+    "id": 22,
+    "nome": "Planner Financeiro Simples [Free] [Sem Login]",
+    "categoria": "utilidades",
+    "emoji": "💸",
+    "dor_resolvida": "Não ter clareza de gastos mensais e recorrências de assinatura.",
+    "descricao": "Planilha interativa no navegador para mapear gastos fixos, variáveis e assinaturas, com visão mensal.",
+    "url": "#"
+  },
+  {
+    "id": 23,
+    "nome": "Gerador de Portfólio Rápido [Criadores]",
+    "categoria": "estudos",
+    "emoji": "🧩",
+    "dor_resolvida": "Dificuldade em organizar projetos em um portfólio simples para enviar em processos seletivos.",
+    "descricao": "Ajuda a montar uma página única com seus melhores projetos, links e contatos em poucos minutos.",
+    "url": "#"
+  },
+  {
+    "id": 24,
+    "nome": "Coleção de Templates de E‑mail [Free]",
+    "categoria": "escrita",
+    "emoji": "📨",
+    "dor_resolvida": "Perder tempo escrevendo sempre do zero e-mails recorrentes.",
+    "descricao": "Biblioteca de modelos de e-mail para prospecção, follow‑up, networking e suporte, pronta para copiar e adaptar.",
+    "url": "#"
+  }
+]
