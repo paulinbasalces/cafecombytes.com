@@ -8,27 +8,21 @@ const appState = {
   currentTool: null,
   theme: null,
   fontScale: "normal",
-  uiStorage: {
-    get(key) {
-      try {
-        return window.localStorage.getItem(key);
-      } catch (error) {
-        return null;
-      }
-    },
-    set(key, value) {
-      try {
-        window.localStorage.setItem(key, value);
-      } catch (error) {
-        return false;
-      }
-      return true;
-    }
-  }
+  lastTriggerElement: null,
+  focusableSelectors: [
+    'a[href]',
+    'button:not([disabled])',
+    'textarea:not([disabled])',
+    'input:not([disabled])',
+    'select:not([disabled])',
+    '[tabindex]:not([tabindex="-1"])'
+  ].join(","),
+  uiStorage: createSafeStorage()
 };
 
 const dom = {
   html: document.documentElement,
+  body: document.body,
   searchForm: document.getElementById("searchForm"),
   searchInput: document.getElementById("buscaFerramenta"),
   clearSearchButton: document.getElementById("clearSearchButton"),
@@ -42,6 +36,7 @@ const dom = {
   themeToggle: document.querySelector("[data-theme-toggle]"),
   fontToggle: document.querySelector("[data-font-toggle]"),
   modalBackdrop: document.getElementById("modalBackdrop"),
+  modalPanel: document.getElementById("toolModal"),
   modalClose: document.getElementById("modalClose"),
   modalTitle: document.getElementById("modalTitle"),
   modalCategory: document.getElementById("modalCategory"),
@@ -58,11 +53,47 @@ const dom = {
 };
 
 document.addEventListener("DOMContentLoaded", () => {
+  ensureModalAccessibilityAttributes();
   setupTheme();
   setupFontScale();
   bindEvents();
   loadData();
 });
+
+function createSafeStorage() {
+  const memoryStore = new Map();
+
+  return {
+    get(key) {
+      try {
+        const value = window.localStorage.getItem(key);
+        return value !== null ? value : memoryStore.get(key) || null;
+      } catch (error) {
+        return memoryStore.get(key) || null;
+      }
+    },
+    set(key, value) {
+      try {
+        window.localStorage.setItem(key, value);
+      } catch (error) {
+        memoryStore.set(key, value);
+        return false;
+      }
+      memoryStore.set(key, value);
+      return true;
+    }
+  };
+}
+
+function ensureModalAccessibilityAttributes() {
+  if (dom.modalBackdrop) {
+    dom.modalBackdrop.setAttribute("aria-hidden", "true");
+  }
+
+  if (dom.modalPanel && !dom.modalPanel.hasAttribute("tabindex")) {
+    dom.modalPanel.setAttribute("tabindex", "-1");
+  }
+}
 
 function setupTheme() {
   const savedTheme = appState.uiStorage.get("ccb-theme");
@@ -90,61 +121,131 @@ function toggleFontScale() {
 }
 
 function bindEvents() {
-  dom.themeToggle.addEventListener("click", toggleTheme);
-  dom.fontToggle.addEventListener("click", toggleFontScale);
+  if (dom.themeToggle) {
+    dom.themeToggle.addEventListener("click", toggleTheme);
+  }
 
-  dom.searchForm.addEventListener("submit", (event) => {
-    event.preventDefault();
-    appState.query = dom.searchInput.value.trim().toLowerCase();
-    renderTools();
-  });
+  if (dom.fontToggle) {
+    dom.fontToggle.addEventListener("click", toggleFontScale);
+  }
 
-  dom.searchInput.addEventListener("input", () => {
-    appState.query = dom.searchInput.value.trim().toLowerCase();
-    renderTools();
-  });
+  if (dom.searchForm) {
+    dom.searchForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      appState.query = dom.searchInput.value.trim().toLowerCase();
+      renderTools();
+    });
+  }
 
-  dom.clearSearchButton.addEventListener("click", () => {
-    dom.searchInput.value = "";
-    appState.query = "";
-    renderTools();
-  });
+  if (dom.searchInput) {
+    dom.searchInput.addEventListener("input", () => {
+      appState.query = dom.searchInput.value.trim().toLowerCase();
+      renderTools();
+    });
+  }
 
-  dom.googleFallbackButton.addEventListener("click", () => {
-    const fallbackTerm = dom.searchInput.value.trim() || "ferramentas úteis produtividade IA design estudo";
-    const googleUrl = `https://www.google.com/search?q=${encodeURIComponent(fallbackTerm)}`;
-    window.open(googleUrl, "_blank", "noopener,noreferrer");
-  });
+  if (dom.clearSearchButton) {
+    dom.clearSearchButton.addEventListener("click", () => {
+      if (dom.searchInput) {
+        dom.searchInput.value = "";
+      }
+      appState.query = "";
+      renderTools();
+      if (dom.searchInput) {
+        dom.searchInput.focus();
+      }
+    });
+  }
 
-  dom.journeyFilters.addEventListener("click", handleFilterClick);
-  dom.categoryFilters.addEventListener("click", handleFilterClick);
+  if (dom.googleFallbackButton) {
+    dom.googleFallbackButton.addEventListener("click", () => {
+      const fallbackTerm = dom.searchInput && dom.searchInput.value.trim()
+        ? dom.searchInput.value.trim()
+        : "ferramentas úteis produtividade IA design estudo";
+      const googleUrl = `https://www.google.com/search?q=${encodeURIComponent(fallbackTerm)}`;
+      window.open(googleUrl, "_blank", "noopener,noreferrer");
+    });
+  }
 
-  dom.modalClose.addEventListener("click", closeModal);
-  dom.modalBackdrop.addEventListener("click", (event) => {
-    if (event.target === dom.modalBackdrop) {
-      closeModal();
-    }
-  });
+  if (dom.journeyFilters) {
+    dom.journeyFilters.addEventListener("click", handleFilterClick);
+  }
 
-  dom.modalShare.addEventListener("click", shareCurrentTool);
+  if (dom.categoryFilters) {
+    dom.categoryFilters.addEventListener("click", handleFilterClick);
+  }
 
-  window.addEventListener("keydown", (event) => {
-    if (event.key === "Escape" && !dom.modalBackdrop.hidden) {
-      closeModal();
-    }
-  });
+  if (dom.modalClose) {
+    dom.modalClose.addEventListener("click", () => {
+      closeModal({ updateHistory: true, returnFocus: true });
+    });
+  }
+
+  if (dom.modalBackdrop) {
+    dom.modalBackdrop.addEventListener("click", (event) => {
+      if (event.target === dom.modalBackdrop) {
+        closeModal({ updateHistory: true, returnFocus: true });
+      }
+    });
+  }
+
+  if (dom.modalPanel) {
+    dom.modalPanel.addEventListener("click", (event) => {
+      event.stopPropagation();
+    });
+  }
+
+  if (dom.modalShare) {
+    dom.modalShare.addEventListener("click", shareCurrentTool);
+  }
+
+  window.addEventListener("keydown", handleGlobalKeydown);
 
   window.addEventListener("popstate", () => {
-    const params = new URLSearchParams(window.location.search);
-    const modalId = params.get("modal");
-    if (!modalId) {
-      hideModalOnly();
-      return;
-    }
-    const matchedTool = appState.tools.find((tool) => String(tool.id) === String(modalId));
-    if (matchedTool) {
-      openModal(matchedTool, false);
-    }
+    syncModalWithUrl();
+  });
+}
+
+function handleGlobalKeydown(event) {
+  const modalIsOpen = dom.modalBackdrop && !dom.modalBackdrop.hidden;
+
+  if (event.key === "Escape" && modalIsOpen) {
+    event.preventDefault();
+    closeModal({ updateHistory: true, returnFocus: true });
+    return;
+  }
+
+  if (event.key === "Tab" && modalIsOpen) {
+    trapFocusInsideModal(event);
+  }
+}
+
+function trapFocusInsideModal(event) {
+  if (!dom.modalPanel) return;
+
+  const focusableElements = getModalFocusableElements();
+  if (!focusableElements.length) return;
+
+  const firstElement = focusableElements[0];
+  const lastElement = focusableElements[focusableElements.length - 1];
+  const activeElement = document.activeElement;
+
+  if (event.shiftKey && activeElement === firstElement) {
+    event.preventDefault();
+    lastElement.focus();
+    return;
+  }
+
+  if (!event.shiftKey && activeElement === lastElement) {
+    event.preventDefault();
+    firstElement.focus();
+  }
+}
+
+function getModalFocusableElements() {
+  if (!dom.modalPanel) return [];
+  return Array.from(dom.modalPanel.querySelectorAll(appState.focusableSelectors)).filter((element) => {
+    return !element.hasAttribute("hidden") && !element.getAttribute("aria-hidden") && element.offsetParent !== null;
   });
 }
 
@@ -172,11 +273,19 @@ async function loadData() {
 
     renderPartners();
     renderTools();
-    hydrateModalFromUrl();
+    syncModalWithUrl();
   } catch (error) {
-    dom.resultCount.textContent = "Não foi possível carregar a curadoria no momento.";
-    dom.cardsGrid.innerHTML = "";
-    dom.emptyState.hidden = false;
+    if (dom.resultCount) {
+      dom.resultCount.textContent = "Não foi possível carregar a curadoria no momento.";
+    }
+
+    if (dom.cardsGrid) {
+      dom.cardsGrid.innerHTML = "";
+    }
+
+    if (dom.emptyState) {
+      dom.emptyState.hidden = false;
+    }
   }
 }
 
@@ -201,12 +310,16 @@ function handleFilterClick(event) {
 }
 
 function updateActiveState(parent, activeButton, selector) {
+  if (!parent) return;
   parent.querySelectorAll(selector).forEach((item) => item.classList.remove("is-active"));
   activeButton.classList.add("is-active");
 }
 
 function renderPartners() {
+  if (!dom.partnersList) return;
+
   dom.partnersList.innerHTML = "";
+
   appState.partners.forEach((partner) => {
     const item = document.createElement("li");
     item.className = "partner-item";
@@ -228,16 +341,25 @@ function renderPartners() {
 }
 
 function renderTools() {
+  if (!dom.cardsGrid) return;
+
   const filteredTools = getFilteredTools();
   dom.cardsGrid.innerHTML = "";
-  dom.resultCount.textContent = `${filteredTools.length} ferramenta${filteredTools.length === 1 ? "" : "s"} encontradas${filteredTools.length === 1 ? "" : "s"} para o recorte atual.`;
+
+  if (dom.resultCount) {
+    dom.resultCount.textContent = `${filteredTools.length} ferramenta${filteredTools.length === 1 ? "" : "s"} encontrada${filteredTools.length === 1 ? "" : "s"} para o recorte atual.`;
+  }
 
   if (!filteredTools.length) {
-    dom.emptyState.hidden = false;
+    if (dom.emptyState) {
+      dom.emptyState.hidden = false;
+    }
     return;
   }
 
-  dom.emptyState.hidden = true;
+  if (dom.emptyState) {
+    dom.emptyState.hidden = true;
+  }
 
   filteredTools.forEach((tool) => {
     const card = createToolCard(tool);
@@ -287,7 +409,7 @@ function matchesJourneyFilter(tool) {
 function matchesSearch(tool) {
   if (!appState.query) return true;
 
-  const tagNamesFromTitle = extractTitleTags(tool.nome).tags.join(" ");
+  const titleTags = extractTitleTags(tool.nome).tags.join(" ");
   const searchable = [
     tool.nome,
     tool.categoria,
@@ -299,10 +421,8 @@ function matchesSearch(tool) {
     tool.momento_da_jornada,
     tool.nivel_de_urgencia,
     ...(tool.tags || []),
-    tagNamesFromTitle
-  ]
-    .join(" ")
-    .toLowerCase();
+    titleTags
+  ].join(" ").toLowerCase();
 
   return searchable.includes(appState.query);
 }
@@ -349,7 +469,6 @@ function createToolCard(tool) {
 
   const meta = document.createElement("div");
   meta.className = "tool-meta";
-
   meta.appendChild(createMetaBlock("Melhor para", tool.melhor_para));
   meta.appendChild(createMetaBlock("Cuidado", tool.cuidado));
   meta.appendChild(createMetaBlock("Cenário", tool.cenario));
@@ -367,7 +486,12 @@ function createToolCard(tool) {
   openButton.type = "button";
   openButton.className = "btn btn-secondary";
   openButton.textContent = "Ver contexto";
-  openButton.addEventListener("click", () => openModal(tool, true));
+  openButton.setAttribute("aria-haspopup", "dialog");
+  openButton.setAttribute("aria-label", `Ver contexto da ferramenta ${parsed.cleanTitle}`);
+  openButton.addEventListener("click", (event) => {
+    appState.lastTriggerElement = event.currentTarget;
+    openModal(tool, { pushHistory: true, focusModal: true });
+  });
 
   const visitLink = document.createElement("a");
   visitLink.className = "btn btn-primary";
@@ -401,6 +525,7 @@ function createMetaBlock(label, value) {
 
   block.appendChild(span);
   block.appendChild(text);
+
   return block;
 }
 
@@ -408,9 +533,13 @@ function extractTitleTags(title) {
   const regex = /\[(.*?)\]/g;
   const tags = [];
   let match;
+
   while ((match = regex.exec(title)) !== null) {
-    if (match[1]) tags.push(match[1].trim());
+    if (match[1]) {
+      tags.push(match[1].trim());
+    }
   }
+
   const cleanTitle = title.replace(regex, "").replace(/\s{2,}/g, " ").trim();
   return { cleanTitle, tags };
 }
@@ -435,8 +564,13 @@ function createTagBadge(tagName) {
   return badge;
 }
 
-function openModal(tool, pushState = true) {
+function openModal(tool, options = {}) {
+  const { pushHistory = true, focusModal = true } = options;
+
+  if (!dom.modalBackdrop || !dom.modalPanel) return;
+
   appState.currentTool = tool;
+
   const parsed = extractTitleTags(tool.nome);
   const allTags = mergeTags(parsed.tags, tool.tags || []);
 
@@ -450,45 +584,98 @@ function openModal(tool, pushState = true) {
   dom.modalJourney.textContent = tool.momento_da_jornada;
   dom.modalUrgency.textContent = tool.nivel_de_urgencia;
   dom.modalVisitLink.href = tool.url;
+
   dom.modalTags.innerHTML = "";
   allTags.forEach((tag) => {
     dom.modalTags.appendChild(createTagBadge(tag));
   });
 
   dom.modalBackdrop.hidden = false;
-  document.body.style.overflow = "hidden";
+  dom.modalBackdrop.setAttribute("aria-hidden", "false");
+  dom.body.style.overflow = "hidden";
 
-  if (pushState) {
+  if (pushHistory) {
     const url = new URL(window.location.href);
-    url.searchParams.set("modal", tool.id);
-    window.history.pushState({ modal: tool.id }, "", url);
+    url.searchParams.set("modal", String(tool.id));
+    window.history.pushState({ modal: String(tool.id) }, "", url.toString());
+  }
+
+  if (focusModal) {
+    requestAnimationFrame(() => {
+      if (dom.modalClose) {
+        dom.modalClose.focus();
+      } else {
+        dom.modalPanel.focus();
+      }
+    });
   }
 }
 
-function closeModal() {
-  hideModalOnly();
+function closeModal(options = {}) {
+  const { updateHistory = true, returnFocus = true } = options;
+
+  hideModalOnly(returnFocus);
+
+  if (!updateHistory) return;
+
   const url = new URL(window.location.href);
   if (url.searchParams.has("modal")) {
     url.searchParams.delete("modal");
-    window.history.pushState({}, "", url);
+    window.history.replaceState({}, "", url.toString());
   }
 }
 
-function hideModalOnly() {
+function hideModalOnly(returnFocus = true) {
+  if (!dom.modalBackdrop) return;
+
   dom.modalBackdrop.hidden = true;
-  document.body.style.overflow = "";
+  dom.modalBackdrop.setAttribute("aria-hidden", "true");
+  dom.body.style.overflow = "";
+
+  const elementToFocus = appState.lastTriggerElement;
   appState.currentTool = null;
+
+  if (returnFocus && elementToFocus && typeof elementToFocus.focus === "function") {
+    requestAnimationFrame(() => {
+      elementToFocus.focus();
+    });
+  }
 }
 
-function hydrateModalFromUrl() {
+function syncModalWithUrl() {
   const params = new URLSearchParams(window.location.search);
   const modalId = params.get("modal");
-  if (!modalId) return;
 
-  const tool = appState.tools.find((item) => String(item.id) === String(modalId));
-  if (tool) {
-    openModal(tool, false);
+  if (!modalId) {
+    hideModalOnly(false);
+    return;
   }
+
+  if (!appState.tools.length) {
+    return;
+  }
+
+  const matchedTool = appState.tools.find((tool) => String(tool.id) === String(modalId));
+
+  if (!matchedTool) {
+    const cleanUrl = new URL(window.location.href);
+    cleanUrl.searchParams.delete("modal");
+    window.history.replaceState({}, "", cleanUrl.toString());
+    hideModalOnly(false);
+    return;
+  }
+
+  const alreadyOpenSameTool =
+    appState.currentTool &&
+    String(appState.currentTool.id) === String(matchedTool.id) &&
+    dom.modalBackdrop &&
+    !dom.modalBackdrop.hidden;
+
+  if (alreadyOpenSameTool) {
+    return;
+  }
+
+  openModal(matchedTool, { pushHistory: false, focusModal: true });
 }
 
 async function shareCurrentTool() {
@@ -496,7 +683,7 @@ async function shareCurrentTool() {
 
   const parsed = extractTitleTags(appState.currentTool.nome);
   const shareUrl = new URL(window.location.href);
-  shareUrl.searchParams.set("modal", appState.currentTool.id);
+  shareUrl.searchParams.set("modal", String(appState.currentTool.id));
 
   const payload = {
     title: `${parsed.cleanTitle} — Café Com Bytes`,
@@ -520,7 +707,7 @@ async function shareCurrentTool() {
 function copyShareUrl(url) {
   if (navigator.clipboard && navigator.clipboard.writeText) {
     navigator.clipboard.writeText(url).then(() => {
-      alert("Link copiado para a área de transferência.");
+      window.alert("Link copiado para a área de transferência.");
     }).catch(() => {
       window.prompt("Copie o link abaixo:", url);
     });
