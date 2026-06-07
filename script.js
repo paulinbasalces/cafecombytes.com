@@ -88,11 +88,14 @@ function createSafeStorage() {
 function ensureModalAccessibilityAttributes() {
   if (dom.modalBackdrop) {
     dom.modalBackdrop.setAttribute("aria-hidden", "true");
+    dom.modalBackdrop.hidden = true;
   }
 
   if (dom.modalPanel && !dom.modalPanel.hasAttribute("tabindex")) {
     dom.modalPanel.setAttribute("tabindex", "-1");
   }
+
+  dom.body.classList.remove("modal-open");
 }
 
 function setupTheme() {
@@ -148,12 +151,10 @@ function bindEvents() {
     dom.clearSearchButton.addEventListener("click", () => {
       if (dom.searchInput) {
         dom.searchInput.value = "";
+        dom.searchInput.focus();
       }
       appState.query = "";
       renderTools();
-      if (dom.searchInput) {
-        dom.searchInput.focus();
-      }
     });
   }
 
@@ -200,14 +201,11 @@ function bindEvents() {
   }
 
   window.addEventListener("keydown", handleGlobalKeydown);
-
-  window.addEventListener("popstate", () => {
-    syncModalWithUrl();
-  });
+  window.addEventListener("popstate", syncModalWithUrl);
 }
 
 function handleGlobalKeydown(event) {
-  const modalIsOpen = dom.modalBackdrop && !dom.modalBackdrop.hidden;
+  const modalIsOpen = Boolean(dom.modalBackdrop && !dom.modalBackdrop.hidden);
 
   if (event.key === "Escape" && modalIsOpen) {
     event.preventDefault();
@@ -244,8 +242,11 @@ function trapFocusInsideModal(event) {
 
 function getModalFocusableElements() {
   if (!dom.modalPanel) return [];
+
   return Array.from(dom.modalPanel.querySelectorAll(appState.focusableSelectors)).filter((element) => {
-    return !element.hasAttribute("hidden") && !element.getAttribute("aria-hidden") && element.offsetParent !== null;
+    const isHiddenByAttribute = element.hidden || element.getAttribute("aria-hidden") === "true";
+    const isInvisible = element.offsetParent === null && getComputedStyle(element).position !== "fixed";
+    return !isHiddenByAttribute && !isInvisible;
   });
 }
 
@@ -386,6 +387,7 @@ function matchesJourneyFilter(tool) {
     tool.melhor_para,
     tool.cenario,
     tool.momento_da_jornada,
+    tool.nivel_de_urgencia,
     ...(tool.tags || [])
   ].join(" ").toLowerCase();
 
@@ -398,8 +400,8 @@ function matchesJourneyFilter(tool) {
     ia: ["ia", "aceleração", "produtividade", "rascunho"],
     automatizar: ["automação", "integrações", "fluxos", "otimização"],
     equipe: ["equipe", "colaborativo", "reuniões", "trabalho remoto", "comunicação"],
-    simples: ["rápido", "grátis", "sem cadastro", "simples"],
-    agora: ["alto", "rápido", "resolução imediata", "urgência", "executar"]
+    simples: ["rápido", "grátis", "sem cadastro", "simples", "sem login"],
+    agora: ["alto", "rápido", "resolução imediata", "urgência", "executar", "agora"]
   };
 
   const keywords = maps[appState.activeJourney] || [];
@@ -409,9 +411,10 @@ function matchesJourneyFilter(tool) {
 function matchesSearch(tool) {
   if (!appState.query) return true;
 
-  const titleTags = extractTitleTags(tool.nome).tags.join(" ");
+  const extracted = extractTitleTags(tool.nome);
   const searchable = [
     tool.nome,
+    extracted.cleanTitle,
     tool.categoria,
     tool.dor_resolvida,
     tool.descricao,
@@ -421,7 +424,7 @@ function matchesSearch(tool) {
     tool.momento_da_jornada,
     tool.nivel_de_urgencia,
     ...(tool.tags || []),
-    titleTags
+    ...extracted.tags
   ].join(" ").toLowerCase();
 
   return searchable.includes(appState.query);
@@ -458,7 +461,7 @@ function createToolCard(tool) {
 
   const emoji = document.createElement("div");
   emoji.className = "tool-emoji";
-  emoji.textContent = tool.emoji;
+  emoji.textContent = tool.emoji || "☕";
 
   header.appendChild(titleGroup);
   header.appendChild(emoji);
@@ -469,9 +472,9 @@ function createToolCard(tool) {
 
   const meta = document.createElement("div");
   meta.className = "tool-meta";
-  meta.appendChild(createMetaBlock("Melhor para", tool.melhor_para));
-  meta.appendChild(createMetaBlock("Cuidado", tool.cuidado));
-  meta.appendChild(createMetaBlock("Cenário", tool.cenario));
+  meta.appendChild(createMetaBlock("Melhor para", tool.melhor_para || "Uso geral"));
+  meta.appendChild(createMetaBlock("Cuidado", tool.cuidado || "Verifique limites, planos e encaixe no seu fluxo."));
+  meta.appendChild(createMetaBlock("Cenário", tool.cenario || "Quando você precisa resolver algo com rapidez e clareza."));
 
   const tags = document.createElement("div");
   tags.className = "tag-list";
@@ -495,7 +498,7 @@ function createToolCard(tool) {
 
   const visitLink = document.createElement("a");
   visitLink.className = "btn btn-primary";
-  visitLink.href = tool.url;
+  visitLink.href = tool.url || "#";
   visitLink.target = "_blank";
   visitLink.rel = "noopener noreferrer";
   visitLink.textContent = "Abrir site oficial";
@@ -530,23 +533,23 @@ function createMetaBlock(label, value) {
 }
 
 function extractTitleTags(title) {
+  const safeTitle = typeof title === "string" ? title : "";
   const regex = /\[(.*?)\]/g;
   const tags = [];
   let match;
 
-  while ((match = regex.exec(title)) !== null) {
+  while ((match = regex.exec(safeTitle)) !== null) {
     if (match[1]) {
       tags.push(match[1].trim());
     }
   }
 
-  const cleanTitle = title.replace(regex, "").replace(/\s{2,}/g, " ").trim();
+  const cleanTitle = safeTitle.replace(regex, "").replace(/\s{2,}/g, " ").trim();
   return { cleanTitle, tags };
 }
 
 function mergeTags(tagsFromTitle, tagsFromField) {
-  const merged = [...tagsFromTitle, ...tagsFromField];
-  return [...new Set(merged)];
+  return [...new Set([...(tagsFromTitle || []), ...(tagsFromField || [])])];
 }
 
 function createTagBadge(tagName) {
@@ -554,11 +557,14 @@ function createTagBadge(tagName) {
   badge.className = "tag-badge";
   badge.textContent = `[${tagName}]`;
 
-  const stylePreset = appState.tagStyles[tagName];
+  const stylePreset = appState.tagStyles[tagName] || appState.tagStyles["*"];
   if (stylePreset) {
     badge.style.color = stylePreset.textColor;
     badge.style.backgroundColor = stylePreset.backgroundColor;
     badge.style.borderColor = stylePreset.borderColor;
+    if (stylePreset.className) {
+      badge.classList.add(stylePreset.className);
+    }
   }
 
   return badge;
@@ -574,16 +580,16 @@ function openModal(tool, options = {}) {
   const parsed = extractTitleTags(tool.nome);
   const allTags = mergeTags(parsed.tags, tool.tags || []);
 
-  dom.modalCategory.textContent = tool.categoria;
-  dom.modalTitle.textContent = parsed.cleanTitle;
-  dom.modalDor.textContent = tool.dor_resolvida;
-  dom.modalDescription.textContent = tool.descricao;
-  dom.modalBestFor.textContent = tool.melhor_para;
-  dom.modalScenario.textContent = tool.cenario;
-  dom.modalCuidado.textContent = tool.cuidado;
-  dom.modalJourney.textContent = tool.momento_da_jornada;
-  dom.modalUrgency.textContent = tool.nivel_de_urgencia;
-  dom.modalVisitLink.href = tool.url;
+  dom.modalCategory.textContent = tool.categoria || "Ferramenta";
+  dom.modalTitle.textContent = parsed.cleanTitle || "Detalhes da ferramenta";
+  dom.modalDor.textContent = tool.dor_resolvida || "";
+  dom.modalDescription.textContent = tool.descricao || "";
+  dom.modalBestFor.textContent = tool.melhor_para || "Uso geral";
+  dom.modalScenario.textContent = tool.cenario || "Quando você precisa resolver algo com rapidez e clareza.";
+  dom.modalCuidado.textContent = tool.cuidado || "Confira limites, planos, idioma e compatibilidade com seu fluxo.";
+  dom.modalJourney.textContent = tool.momento_da_jornada || "Exploração";
+  dom.modalUrgency.textContent = tool.nivel_de_urgencia || "Média";
+  dom.modalVisitLink.href = tool.url || "#";
 
   dom.modalTags.innerHTML = "";
   allTags.forEach((tag) => {
@@ -592,7 +598,7 @@ function openModal(tool, options = {}) {
 
   dom.modalBackdrop.hidden = false;
   dom.modalBackdrop.setAttribute("aria-hidden", "false");
-  dom.body.style.overflow = "hidden";
+  dom.body.classList.add("modal-open");
 
   if (pushHistory) {
     const url = new URL(window.location.href);
@@ -630,14 +636,14 @@ function hideModalOnly(returnFocus = true) {
 
   dom.modalBackdrop.hidden = true;
   dom.modalBackdrop.setAttribute("aria-hidden", "true");
-  dom.body.style.overflow = "";
+  dom.body.classList.remove("modal-open");
 
-  const elementToFocus = appState.lastTriggerElement;
+  const focusTarget = appState.lastTriggerElement;
   appState.currentTool = null;
 
-  if (returnFocus && elementToFocus && typeof elementToFocus.focus === "function") {
+  if (returnFocus && focusTarget && typeof focusTarget.focus === "function") {
     requestAnimationFrame(() => {
-      elementToFocus.focus();
+      focusTarget.focus();
     });
   }
 }
@@ -687,7 +693,7 @@ async function shareCurrentTool() {
 
   const payload = {
     title: `${parsed.cleanTitle} — Café Com Bytes`,
-    text: `${parsed.cleanTitle}: ${appState.currentTool.dor_resolvida}`,
+    text: `${parsed.cleanTitle}: ${appState.currentTool.dor_resolvida || "Ferramenta recomendada no Café Com Bytes."}`,
     url: shareUrl.toString()
   };
 
