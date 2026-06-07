@@ -1,22 +1,42 @@
 [
   {
+    "id": "p1",
     "nome": "0800 Eu Vou",
-    "descricao": "Curadoria de oportunidades, utilidade pública e caminhos práticos para quem quer avançar sem complicação.",
-    "url": "https://0800euvou.com"
+    "slug": "0800euvou",
+    "categoria": "Benefícios e acesso",
+    "descricao": "Portal da rede com foco em oportunidades acessíveis, serviços úteis e conteúdos práticos para quem busca caminhos mais objetivos no cotidiano digital.",
+    "url": "https://0800euvou.com",
+    "destaque_rodape": "Acesso e oportunidades",
+    "relacao_editorial": "Complementa o ecossistema com utilidades e portas de entrada para benefícios e serviços."
   },
   {
+    "id": "p2",
     "nome": "Estudar Online",
-    "descricao": "Portal focado em estudo digital, cursos, aprendizado contínuo e caminhos de formação acessíveis.",
-    "url": "https://estudaronline.org"
+    "slug": "estudaronline",
+    "categoria": "Educação digital",
+    "descricao": "Hub voltado para aprendizado online, cursos, plataformas de estudo e recursos para quem quer evoluir com mais autonomia.",
+    "url": "https://estudaronline.org",
+    "destaque_rodape": "Aprender melhor",
+    "relacao_editorial": "Expande a curadoria para trilhas de estudo, capacitação e formação contínua."
   },
   {
-    "nome": "Trabalho e Futuro",
-    "descricao": "Conteúdos sobre carreira, produtividade, trabalho remoto, renda e transformações do mercado.",
-    "url": "https://trabalhoefuturo.com"
+    "id": "p3",
+    "nome": "Trabalho & Futuro",
+    "slug": "trabalhoefuturo",
+    "categoria": "Carreira e trabalho",
+    "descricao": "Projeto com foco em carreira, trabalho digital, produtividade profissional, renda, empregabilidade e adaptação ao futuro do trabalho.",
+    "url": "https://trabalhoefuturo.com",
+    "destaque_rodape": "Carreira e operação",
+    "relacao_editorial": "Conecta ferramentas e organização com contexto profissional e tomada de decisão de carreira."
   },
   {
+    "id": "p4",
     "nome": "Viajar com Seguro",
-    "descricao": "Curadoria prática para planejamento de viagens, segurança, documentação e decisões com mais clareza.",
-    "url": "https://viajarcomseguro.com"
+    "slug": "viajarcomseguro",
+    "categoria": "Planejamento de viagens",
+    "descricao": "Portal dedicado a planejamento, proteção, organização e decisões práticas para viagens nacionais e internacionais.",
+    "url": "https://viajarcomseguro.com",
+    "destaque_rodape": "Planejar com segurança",
+    "relacao_editorial": "Amplia o ecossistema para checklists, comparação e planejamento de deslocamento com menos risco."
   }
 ]
