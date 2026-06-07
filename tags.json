@@ -1,74 +1,67 @@
 {
-  "Gratuito": {
-    "textColor": "#e2ffe9",
-    "backgroundColor": "rgba(9, 48, 23, 0.96)",
-    "borderColor": "rgba(111, 255, 163, 0.8)",
-    "className": "tag-pill--free"
+  "Grátis": {
+    "textColor": "#184332",
+    "backgroundColor": "rgba(182, 228, 203, 0.88)",
+    "borderColor": "rgba(72, 132, 98, 0.42)"
   },
-  "Free": {
-    "textColor": "#e2ffe9",
-    "backgroundColor": "rgba(9, 48, 23, 0.96)",
-    "borderColor": "rgba(111, 255, 163, 0.8)",
-    "className": "tag-pill--free"
+  "Freemium": {
+    "textColor": "#5c3a15",
+    "backgroundColor": "rgba(241, 214, 173, 0.9)",
+    "borderColor": "rgba(175, 122, 54, 0.38)"
   },
-  "Free Tier": {
-    "textColor": "#e2ffe9",
-    "backgroundColor": "rgba(10, 40, 30, 0.96)",
-    "borderColor": "rgba(111, 255, 163, 0.8)",
-    "className": "tag-pill--free"
-  },
-  "Sem Login": {
-    "textColor": "#e2f4ff",
-    "backgroundColor": "rgba(8, 26, 61, 0.98)",
-    "borderColor": "rgba(128, 198, 255, 0.86)",
-    "className": "tag-pill--no-login"
+  "IA": {
+    "textColor": "#2f2459",
+    "backgroundColor": "rgba(209, 196, 244, 0.9)",
+    "borderColor": "rgba(108, 83, 176, 0.38)"
   },
   "Sem Cadastro": {
-    "textColor": "#e2f4ff",
-    "backgroundColor": "rgba(8, 26, 61, 0.98)",
-    "borderColor": "rgba(128, 198, 255, 0.86)",
-    "className": "tag-pill--no-login"
+    "textColor": "#27435a",
+    "backgroundColor": "rgba(189, 220, 238, 0.9)",
+    "borderColor": "rgba(81, 132, 168, 0.36)"
   },
-  "Sem Marca d’Água": {
-    "textColor": "#ffe6f3",
-    "backgroundColor": "rgba(88, 17, 53, 0.98)",
-    "borderColor": "rgba(255, 131, 179, 0.88)",
-    "className": "tag-pill--alerta"
+  "Rápido": {
+    "textColor": "#5b301f",
+    "backgroundColor": "rgba(239, 197, 176, 0.9)",
+    "borderColor": "rgba(175, 103, 75, 0.36)"
   },
-  "Sem Marca d'Água": {
-    "textColor": "#ffe6f3",
-    "backgroundColor": "rgba(88, 17, 53, 0.98)",
-    "borderColor": "rgba(255, 131, 179, 0.88)",
-    "className": "tag-pill--alerta"
+  "Colaborativo": {
+    "textColor": "#24464a",
+    "backgroundColor": "rgba(185, 225, 221, 0.9)",
+    "borderColor": "rgba(66, 132, 126, 0.36)"
   },
-  "IA Generativa": {
-    "textColor": "#f3e9ff",
-    "backgroundColor": "rgba(41, 14, 82, 0.98)",
-    "borderColor": "rgba(190, 140, 255, 0.9)",
-    "className": "tag-pill--ia"
+  "Visual": {
+    "textColor": "#4f315b",
+    "backgroundColor": "rgba(228, 204, 234, 0.9)",
+    "borderColor": "rgba(153, 108, 165, 0.34)"
   },
-  "Português": {
-    "textColor": "#f2f4ff",
-    "backgroundColor": "rgba(16, 32, 88, 0.96)",
-    "borderColor": "rgba(146, 176, 255, 0.85)",
-    "className": "tag-pill--lang"
+  "Produtividade": {
+    "textColor": "#384223",
+    "backgroundColor": "rgba(213, 227, 182, 0.9)",
+    "borderColor": "rgba(121, 145, 69, 0.34)"
   },
-  "Beta": {
-    "textColor": "#fff0de",
-    "backgroundColor": "rgba(86, 43, 5, 0.96)",
-    "borderColor": "rgba(255, 181, 107, 0.9)",
-    "className": "tag-pill--beta"
+  "Pesquisa": {
+    "textColor": "#283f5a",
+    "backgroundColor": "rgba(197, 216, 236, 0.9)",
+    "borderColor": "rgba(90, 126, 168, 0.35)"
   },
-  "[Curadoria]": {
-    "textColor": "#e8ebff",
-    "backgroundColor": "rgba(19, 23, 72, 0.96)",
-    "borderColor": "rgba(142, 163, 255, 0.86)",
-    "className": "tag-pill--curadoria"
+  "Criadores": {
+    "textColor": "#5a2a44",
+    "backgroundColor": "rgba(238, 202, 222, 0.9)",
+    "borderColor": "rgba(174, 102, 142, 0.36)"
   },
-  "*": {
-    "textColor": "#cfd4ff",
-    "backgroundColor": "rgba(5, 10, 33, 0.96)",
-    "borderColor": "rgba(118, 138, 223, 0.8)",
-    "className": "tag-pill"
+  "Equipe": {
+    "textColor": "#2f3b51",
+    "backgroundColor": "rgba(210, 217, 232, 0.9)",
+    "borderColor": "rgba(111, 127, 159, 0.35)"
+  },
+  "Automação": {
+    "textColor": "#2d4a34",
+    "backgroundColor": "rgba(195, 225, 204, 0.9)",
+    "borderColor": "rgba(92, 143, 103, 0.34)"
+  },
+  "Marketing": {
+    "textColor": "#5c3821",
+    "backgroundColor": "rgba(239, 211, 187, 0.9)",
+    "borderColor": "rgba(175, 123, 83, 0.34)"
   }
 }
