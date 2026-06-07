@@ -124,6 +124,10 @@ body {
     linear-gradient(180deg, color-mix(in oklab, var(--color-bg) 88%, var(--color-accent-soft)) 0%, var(--color-bg) 100%);
 }
 
+body.modal-open {
+  overflow: hidden;
+}
+
 img,
 svg {
   display: block;
@@ -180,7 +184,7 @@ ul[role="list"] {
   top: -3rem;
   z-index: 999;
   background: var(--color-primary);
-  color: #f8f1e8;
+  color: #f3eadf;
   padding: 0.7rem 1rem;
   border-radius: var(--radius-full);
   transition: top var(--transition);
@@ -687,15 +691,27 @@ ul[role="list"] {
   color: var(--color-text-muted);
 }
 
+/* CORREÇÃO BLINDADA DO MODAL */
+
 .modal-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(48, 39, 32, 0.42);
-  backdrop-filter: blur(10px);
+  z-index: 9999;
   display: grid;
   place-items: center;
   padding: var(--space-4);
-  z-index: 80;
+  background: rgba(48, 39, 32, 0.42);
+  backdrop-filter: blur(10px);
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.modal-backdrop[hidden] {
+  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
 }
 
 .modal-panel {
@@ -704,6 +720,7 @@ ul[role="list"] {
   max-height: 92vh;
   overflow: auto;
   padding: var(--space-8);
+  z-index: 10000;
 }
 
 .modal-close {
@@ -716,6 +733,7 @@ ul[role="list"] {
   background: color-mix(in oklab, var(--color-surface-2) 88%, transparent);
   border: 1px solid var(--color-border);
   font-size: 1.4rem;
+  line-height: 1;
 }
 
 .modal-header,
