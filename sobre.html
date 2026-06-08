@@ -1,115 +1,55 @@
 <!DOCTYPE html>
-<html lang="pt-BR" data-theme="light">
+<html lang="pt-BR" data-theme="dark">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Sobre — Café Com Bytes</title>
-  <meta name="description" content="Conheça a metodologia editorial do Café Com Bytes e como a curadoria seleciona ferramentas úteis com contexto real de uso.">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sobre e Metodologia | Café com Bytes</title>
+  <meta name="description" content="Entenda como escolhemos e catalogamos as ferramentas para desenvolvedores no Café com Bytes.">
+  <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://cafecombytes.com/sobre.html">
-  <meta property="og:title" content="Sobre — Café Com Bytes">
-  <meta property="og:description" content="Metodologia editorial, critérios de seleção e visão de produto do Café Com Bytes.">
-  <meta property="og:type" content="article">
-  <meta property="og:url" content="https://cafecombytes.com/sobre.html">
-  <meta property="og:site_name" content="Café Com Bytes">
-  <meta name="twitter:card" content="summary">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
-  <script src="script.js" defer></script>
+  <style>
+    .page-content { max-width: 800px; margin: 4rem auto; padding: 0 5%; }
+    .page-content h1 { font-size: 2.5rem; margin-bottom: 1.5rem; color: var(--primary); }
+    .page-content h2 { font-size: 1.5rem; margin: 2rem 0 1rem 0; }
+    .page-content p { margin-bottom: 1.2rem; opacity: 0.9; }
+    .page-content ul { margin: 0 0 1.5rem 2rem; opacity: 0.9; }
+    .page-content li { margin-bottom: 0.5rem; }
+  </style>
 </head>
 <body>
-  <a class="skip-link" href="#sobre-conteudo">Pular para o conteúdo</a>
-
-  <header class="site-header">
-    <div class="container header-inner">
-      <a href="./" class="brand" aria-label="Ir para a página inicial do Café Com Bytes">
-        <span class="brand-logo" aria-hidden="true">
-          <svg viewBox="0 0 96 96" class="logo-svg" role="img">
-            <defs>
-              <linearGradient id="logoGradientSobre" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#8f5f3b"></stop>
-                <stop offset="100%" stop-color="#4b8b87"></stop>
-              </linearGradient>
-            </defs>
-            <rect x="10" y="18" width="54" height="44" rx="14" fill="url(#logoGradientSobre)" opacity="0.18"></rect>
-            <path d="M24 34h18c8 0 14 6 14 14s-6 14-14 14H28" fill="none" stroke="currentColor" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"></path>
-            <path d="M60 38h8c8 0 12 4 12 10s-4 10-12 10h-5" fill="none" stroke="#4b8b87" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"></path>
-            <path d="M31 20c0-6 4-10 10-12" fill="none" stroke="#8f5f3b" stroke-width="4" stroke-linecap="round"></path>
-            <path d="M46 18c0-7 5-12 12-14" fill="none" stroke="#4b8b87" stroke-width="4" stroke-linecap="round"></path>
-            <path d="M24 66c8 8 18 12 30 12 12 0 22-4 30-12" fill="none" stroke="currentColor" stroke-width="4.5" stroke-linecap="round"></path>
-          </svg>
-        </span>
-        <span class="brand-copy">
-          <span class="brand-name">Café Com Bytes</span>
-          <span class="brand-tagline">Ferramentas úteis, servidas com contexto</span>
-        </span>
-      </a>
-
-      <nav class="main-nav" aria-label="Navegação principal">
-        <a href="./" class="nav-link">Início</a>
-        <a href="sobre.html" class="nav-link">Sobre</a>
-        <a href="privacidade.html" class="nav-link">Privacidade</a>
-      </nav>
-
-      <div class="header-actions">
-        <button class="icon-control" type="button" data-font-toggle aria-label="Alternar tamanho da fonte">A</button>
-        <button class="icon-control" type="button" data-theme-toggle aria-label="Alternar tema"><span class="theme-icon" aria-hidden="true">◐</span></button>
-      </div>
+  <header class="glass-header">
+    <div class="logo"><a href="index.html" style="text-decoration: none; color: inherit;">☕ Café com Bytes</a></div>
+    <div class="controls">
+      <a href="index.html" style="color: var(--text-color); text-decoration: none; font-weight: 500; margin-right: 1rem;">Voltar ao Portal</a>
     </div>
   </header>
 
-  <main id="sobre-conteudo" class="section">
-    <div class="container">
-      <div class="section-heading">
-        <p class="eyebrow">Metodologia editorial</p>
-        <h1>Como o Café Com Bytes escolhe as ferramentas que entram na mesa.</h1>
-        <p class="section-support">
-          O portal não tenta mapear toda a internet. Ele tenta diminuir o esforço de decisão para quem precisa de ferramentas úteis e contexto suficiente para escolher com critério.
-        </p>
-      </div>
+  <main class="page-content">
+    <h1>Nossa Metodologia</h1>
+    <p>O <strong>Café com Bytes</strong> nasceu para resolver um problema comum na engenharia de software: o excesso de ruído. Há dezenas de ferramentas lançadas diariamente, mas poucas resolvem problemas reais em ambientes de produção ou no dia a dia do desenvolvimento.</p>
 
-      <div class="editorial-prose glass-panel" style="padding: 2rem; display: grid; gap: 1rem;">
-        <p>
-          A curadoria parte de um princípio simples: excesso de opções sem contexto não é liberdade, é desgaste. Por isso, Café Com Bytes não funciona como um diretório bruto. Cada ferramenta só entra quando resolve uma dor clara, se encaixa em um cenário plausível e oferece utilidade real para pessoas que estudam, trabalham, criam, organizam ou pesquisam no ambiente digital.
-        </p>
-        <p>
-          O critério principal não é fama. Também não é novidade pela novidade. O filtro é utilidade contextual. Uma ferramenta pode ser excelente para criadores e ruim para equipes, ótima para urgência e péssima para adoção de longo prazo, perfeita para testar sem cadastro e fraca para colaboração. É esse tipo de nuance que o portal tenta mostrar.
-        </p>
-        <p>
-          Cada card foi estruturado para responder perguntas práticas: para quem isso serve, em que cenário faz sentido, qual cuidado vale observar, em que ponto da jornada ela ajuda e com que nível de urgência ela tende a ser útil. A ambição é transformar descoberta em decisão melhor informada.
-        </p>
-        <p>
-          O portal também evita a estética de “estoque digital”. A interface foi pensada como uma cafeteria editorial: um espaço em que as recomendações são servidas com leitura rápida, calor humano e organização visual. Isso significa menos ruído, mais hierarquia e mais respeito ao tempo de quem consulta.
-        </p>
-        <p>
-          A curadoria é iterativa. Ferramentas saem quando deixam de fazer sentido, mudam quando o mercado muda e ganham novos contextos quando o uso real revela outras possibilidades. O valor do portal não está em ser completo; está em continuar útil.
-        </p>
-      </div>
-    </div>
+    <h2>Critérios de Curadoria</h2>
+    <p>Não aceitamos patrocínios para listar ferramentas na nossa base principal. Nosso processo de seleção é rigoroso e avalia:</p>
+    <ul>
+      <li><strong>Utilidade Prática:</strong> A ferramenta resolve uma dor clara (ex: deploy lento, testes complexos, UI genérica)?</li>
+      <li><strong>Documentação:</strong> A curva de aprendizado é suportada por uma documentação sólida e atualizada?</li>
+      <li><strong>Adoção e Estabilidade:</strong> Projetos open-source têm comunidade ativa? Produtos pagos entregam resiliência para times?</li>
+      <li><strong>Acessibilidade:</strong> Há um tier gratuito usável ou o preço é justificado pelo ganho de produtividade?</li>
+    </ul>
+
+    <h2>Transparência e Lógica</h2>
+    <p>Nossa arquitetura é 100% serverless e focada em performance. Categorizamos as ferramentas por intenção, permitindo que você filtre por dor técnica em vez de apenas por tags genéricas. Se um item se tornar obsoleto ou perder suporte, ele será removido do nosso catálogo em nossas revisões periódicas.</p>
   </main>
 
-  <footer class="site-footer">
-    <div class="container footer-grid">
-      <section class="footer-brand">
-        <h2>Café Com Bytes</h2>
-        <p>Curadoria editorial para quem quer descobrir ferramentas úteis com clareza e menos ruído.</p>
-      </section>
-
-      <nav class="footer-nav" aria-label="Navegação do rodapé">
-        <h3>Institucional</h3>
-        <ul role="list">
-          <li><a href="./">Início</a></li>
-          <li><a href="sobre.html">Sobre</a></li>
-          <li><a href="privacidade.html">Privacidade</a></li>
-        </ul>
-      </nav>
-
-      <section class="footer-partners">
-        <h3>Rede parceira</h3>
-        <ul id="partnersList" class="partners-list" role="list"></ul>
-      </section>
-    </div>
+  <footer class="glass-footer">
+     <div class="footer-info">
+       <p>O <strong>Café com Bytes</strong> é um hub operado sob infraestrutura serverless, focado em performance técnica e transparência.</p>
+       <nav class="footer-nav">
+         <a href="sobre.html">Metodologia e Sobre</a>
+         <a href="privacidade.html">Política de Privacidade</a>
+       </nav>
+     </div>
   </footer>
 </body>
 </html>

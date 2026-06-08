@@ -3,19 +3,19 @@
   <url>
     <loc>https://cafecombytes.com/</loc>
     <lastmod>2026-06-07</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://cafecombytes.com/sobre.html</loc>
     <lastmod>2026-06-07</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://cafecombytes.com/privacidade.html</loc>
     <lastmod>2026-06-07</lastmod>
     <changefreq>yearly</changefreq>
-    <priority>0.5</priority>
+    <priority>0.4</priority>
   </url>
 </urlset>
