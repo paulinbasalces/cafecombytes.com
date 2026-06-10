@@ -1,218 +1,335 @@
 [
   {
-    "id": "leonardo-ai",
-    "nome": "Leonardo AI [IA] [Design]",
-    "categoria": "IA e Automação",
+    "id": "screenshot-to-code",
+    "nome": "Screenshot to Code [IA] [Front-end]",
+    "categoria": "Front-end",
+    "emoji": "📸",
+    "dor_resolvida": "Acelerar experimentos iterativos entre design e desenvolvimento web.",
+    "descricao": "Transforma screenshots estáticos de interfaces diretamente em código funcional com IA.",
+    "url": "https://screenshottocode.com"
+  },
+  {
+    "id": "animography",
+    "nome": "Animography [Tipografia] [Motion]",
+    "categoria": "UI / UX",
+    "emoji": "🔠",
+    "dor_resolvida": "Criar tipografia animada profissional sem precisar animar keyframes do zero.",
+    "descricao": "Biblioteca de fontes animadas prontas para uso direto em projetos de motion design.",
+    "url": "https://animography.net/"
+  },
+  {
+    "id": "spline",
+    "nome": "Spline [3D] [Design]",
+    "categoria": "UI / UX",
+    "emoji": "🧊",
+    "dor_resolvida": "Trazer profundidade e interatividade 3D para produtos digitais de forma acessível.",
+    "descricao": "Crie e edite experiências 3D e animações interativas diretamente no navegador.",
+    "url": "https://spline.design/"
+  },
+  {
+    "id": "page-flows",
+    "nome": "Page Flows [UX] [Benchmark]",
+    "categoria": "UI / UX",
+    "emoji": "📱",
+    "dor_resolvida": "Estudar padrões de mercado para onboarding, checkout e fluxos complexos.",
+    "descricao": "Biblioteca massiva de fluxos reais de UX capturados em aplicativos de sucesso.",
+    "url": "https://pageflows.com/"
+  },
+  {
+    "id": "color-hunt",
+    "nome": "Color Hunt [Cores] [Inspiração]",
+    "categoria": "UI / UX",
     "emoji": "🎨",
-    "dor_resolvida": "Criar conceitos, mockups e peças criativas sem começar do zero.",
-    "descricao": "Gere imagens, ilustrações e assets visuais com IA usando prompts de texto.",
-    "url": "https://leonardo.ai/"
+    "dor_resolvida": "Destravar rapidamente escolhas harmônicas de cores em projetos de interface.",
+    "descricao": "Coleção curada de paletas de cores validadas por designers do mundo todo.",
+    "url": "https://colorhunt.co/"
   },
   {
-    "id": "cal-com",
-    "nome": "Cal.com [Produtividade] [Automação]",
-    "categoria": "Produtividade",
-    "emoji": "📅",
-    "dor_resolvida": "Reduzir trocas de mensagens para marcação de horários.",
-    "descricao": "Crie links de agendamento personalizados e automatize marcação de reuniões.",
-    "url": "https://cal.com/"
-  },
-  {
-    "id": "brilliant",
-    "nome": "Brilliant [Design] [Inspiração]",
+    "id": "shots-so",
+    "nome": "Shots.so [Mockups] [Apresentação]",
     "categoria": "UI / UX",
-    "emoji": "✨",
-    "dor_resolvida": "Buscar referências, eficiência e evolução criativa.",
-    "descricao": "Explore recursos e inspirações práticas para elevar projetos de design digital.",
-    "url": "https://brilliant.design/"
-  },
-  {
-    "id": "google-flow",
-    "nome": "Google Flow [IA] [Vídeo]",
-    "categoria": "IA e Automação",
-    "emoji": "🎬",
-    "dor_resolvida": "Explorar produção audiovisual rápida com novas tecnologias.",
-    "descricao": "Crie filmes curtos e cenas cinematográficas com IA usando linguagem natural.",
-    "url": "https://labs.google/flow/about"
-  },
-  {
-    "id": "bgjar",
-    "nome": "BGJar [Front-end] [SVG]",
-    "categoria": "Front-end",
     "emoji": "🖼️",
-    "dor_resolvida": "Criar interfaces e peças visuais com mais personalidade sem depender de imagens pesadas.",
-    "descricao": "Crie padrões, formas e backgrounds SVG personalizados.",
-    "url": "https://bgjar.com/"
+    "dor_resolvida": "Apresentar telas de forma profissional para portfólios e redes sociais.",
+    "descricao": "Ferramenta intuitiva para gerar mockups bonitos de produtos digitais.",
+    "url": "https://shots.so/"
   },
   {
-    "id": "codepen",
-    "nome": "CodePen [Front-end] [Código]",
-    "categoria": "Front-end",
-    "emoji": "💻",
-    "dor_resolvida": "Prototipar rapidamente e buscar inspiração sem configurar ambiente local.",
-    "descricao": "Teste e compartilhe projetos front-end direto no navegador.",
-    "url": "https://codepen.io/"
-  },
-  {
-    "id": "fontshare",
-    "nome": "Fontshare [Tipografia] [Branding]",
-    "categoria": "UI / UX",
-    "emoji": "🔤",
-    "dor_resolvida": "Elevar identidade visual e tipografia sem custos de licenciamento.",
-    "descricao": "Descubra fontes profissionais gratuitas para branding e interfaces.",
-    "url": "https://www.fontshare.com/"
-  },
-  {
-    "id": "descript",
-    "nome": "Descript [Vídeo] [Áudio]",
-    "categoria": "Produtividade",
-    "emoji": "✂️",
-    "dor_resolvida": "Criar e ajustar conteúdos com mais rapidez e menos complexidade técnica de edição.",
-    "descricao": "Edite vídeos e áudios como se estivesse editando texto.",
-    "url": "https://www.descript.com/"
-  },
-  {
-    "id": "claude-design",
-    "nome": "Claude Design [IA] [Prototipação]",
+    "id": "figgpt",
+    "nome": "FigGPT [IA] [Figma]",
     "categoria": "IA e Automação",
-    "emoji": "🤖",
-    "dor_resolvida": "Explorar prototipação rápida e testar ideias de produto com IA.",
-    "descricao": "Transforme prompts em interfaces visuais com geração automática de layouts e componentes.",
-    "url": "https://www.youtube.com/watch?v=t_LBECIQQqs"
+    "emoji": "✍️",
+    "dor_resolvida": "Ganhar velocidade na criação de microcopy sem sair do ambiente de design.",
+    "descricao": "Plugin que integra inteligência artificial diretamente no Figma para geração de textos.",
+    "url": "https://www.figma.com/community/plugin/1207913933994957698/figgpt"
   },
   {
-    "id": "vercel",
-    "nome": "Vercel [Deploy] [Cloud]",
-    "categoria": "Infra e Cloud",
-    "emoji": "▲",
-    "dor_resolvida": "Hospedar aplicações front-end e serverless com zero configuração.",
-    "descricao": "Plataforma de deploy contínuo focada em performance e DX para frameworks modernos.",
-    "url": "https://vercel.com"
+    "id": "hera",
+    "nome": "Hera [Vídeo] [Automação]",
+    "categoria": "Produtividade",
+    "emoji": "🎬",
+    "dor_resolvida": "Remover pausas e cortes desnecessários em tutoriais e demos automaticamente.",
+    "descricao": "Transforma gravações de tela em vídeos editados de forma autônoma usando IA.",
+    "url": "https://hera.video/"
   },
   {
-    "id": "supabase",
-    "nome": "Supabase [Back-end] [Database]",
-    "categoria": "Back-end",
-    "emoji": "⚡",
-    "dor_resolvida": "Substituir o Firebase por uma alternativa open-source baseada em PostgreSQL.",
-    "descricao": "Crie back-ends escaláveis em minutos com banco de dados, auth e storage.",
-    "url": "https://supabase.com"
+    "id": "eraser",
+    "nome": "Eraser [Diagramas] [Arquitetura]",
+    "categoria": "UI / UX",
+    "emoji": "🗺️",
+    "dor_resolvida": "Mapear sistemas, jornadas e arquitetura de produto com visual limpo.",
+    "descricao": "Crie diagramas técnicos e fluxos de navegação com aparência profissional no browser.",
+    "url": "https://www.eraser.io/"
   },
   {
-    "id": "tailwind",
-    "nome": "Tailwind CSS [CSS] [Framework]",
+    "id": "tldraw",
+    "nome": "Tldraw [Colaboração] [Whiteboard]",
+    "categoria": "Produtividade",
+    "emoji": "🖍️",
+    "dor_resolvida": "Realizar brainstorms e ideação em time sem atrito ou interfaces complexas.",
+    "descricao": "Quadro branco infinito e colaborativo focado puramente em velocidade e simplicidade.",
+    "url": "https://www.tldraw.com/"
+  },
+  {
+    "id": "coolors",
+    "nome": "Coolors [Cores] [Branding]",
+    "categoria": "UI / UX",
+    "emoji": "🌈",
+    "dor_resolvida": "Criar identidades visuais com harmonia de forma rápida e iterativa.",
+    "descricao": "Gere paletas de cores automaticamente com combinações prontas e fáceis de ajustar.",
+    "url": "https://coolors.co/"
+  },
+  {
+    "id": "shotsnapp",
+    "nome": "Shotsnapp [Mockups] [Apresentação]",
+    "categoria": "UI / UX",
+    "emoji": "📱",
+    "dor_resolvida": "Elevar o nível visual de apresentações e cases sem softwares de renderização.",
+    "descricao": "Gere mockups de dispositivos com prints das suas telas direto no navegador.",
+    "url": "https://shotsnapp.com/"
+  },
+  {
+    "id": "image-upscaling",
+    "nome": "Image Upscaling [IA] [Imagem]",
+    "categoria": "IA e Automação",
+    "emoji": "🔍",
+    "dor_resolvida": "Melhorar ativos visuais de baixa resolução sem perder definição.",
+    "descricao": "Aumente a resolução de imagens e fotos antigas com IA, mantendo a nitidez.",
+    "url": "https://image-upscaling.net/upscaling/en.html"
+  },
+  {
+    "id": "squoosh",
+    "nome": "Squoosh [Performance] [Imagem]",
+    "categoria": "Front-end",
+    "emoji": "🗜️",
+    "dor_resolvida": "Otimizar o peso de assets visuais antes de enviar para ambientes de produção.",
+    "descricao": "Comprima imagens direto no navegador com controle granular de qualidade.",
+    "url": "https://squoosh.app/"
+  },
+  {
+    "id": "haikei",
+    "nome": "Haikei [SVG] [Backgrounds]",
     "categoria": "Front-end",
     "emoji": "🌊",
-    "dor_resolvida": "Estilizar interfaces rapidamente sem abandonar o arquivo HTML/JSX.",
-    "descricao": "Um framework CSS utility-first para construir designs customizados com velocidade.",
-    "url": "https://tailwindcss.com"
+    "dor_resolvida": "Dar personalidade visual a layouts sem carregar imagens pesadas.",
+    "descricao": "Gerador de backgrounds e formas SVG modernas e orgânicas para interfaces.",
+    "url": "https://haikei.app/"
   },
   {
-    "id": "figma",
-    "nome": "Figma [UI] [Colaboração]",
+    "id": "iconoir",
+    "nome": "Iconoir [Ícones] [Design System]",
     "categoria": "UI / UX",
-    "emoji": "🎨",
-    "dor_resolvida": "Centralizar o design de interfaces e handoff para desenvolvedores.",
-    "descricao": "Ferramenta de design colaborativo baseada no navegador para times de produto.",
-    "url": "https://figma.com"
+    "emoji": "💠",
+    "dor_resolvida": "Manter a consistência visual da interface com uma família iconográfica uniforme.",
+    "descricao": "Biblioteca open-source abrangente com centenas de ícones limpos e minimalistas.",
+    "url": "https://iconoir.com/"
   },
   {
-    "id": "notion",
-    "nome": "Notion [Documentação] [Workspace]",
-    "categoria": "Produtividade",
-    "emoji": "📓",
-    "dor_resolvida": "Organizar documentação técnica, wikis e gestão de tarefas no mesmo lugar.",
-    "descricao": "Workspace conectado para suas anotações, documentos e gerenciamento de projetos.",
-    "url": "https://notion.so"
+    "id": "ray-so",
+    "nome": "Ray.so [Código] [Social]",
+    "categoria": "Front-end",
+    "emoji": "💻",
+    "dor_resolvida": "Compartilhar snippets de código de forma legível e atraente nas redes sociais.",
+    "descricao": "Transforme blocos de código em imagens bonitas e formatadas para portfólios.",
+    "url": "https://ray.so/"
   },
   {
-    "id": "github-copilot",
-    "nome": "GitHub Copilot [IA] [Código]",
+    "id": "alai",
+    "nome": "Alai [IA] [Apresentações]",
     "categoria": "IA e Automação",
-    "emoji": "🐙",
-    "dor_resolvida": "Acelerar a escrita de boilerplate e resolução de algoritmos comuns.",
-    "descricao": "Seu programador em par com IA que sugere código e funções inteiras em tempo real.",
-    "url": "https://github.com/features/copilot"
+    "emoji": "📊",
+    "dor_resolvida": "Organizar ideias e estruturar slides rapidamente antes de reuniões importantes.",
+    "descricao": "Gere apresentações completas com inteligência artificial a partir de prompts simples.",
+    "url": "https://getalai.com/"
   },
   {
-    "id": "docker",
-    "nome": "Docker [Containers] [DevOps]",
-    "categoria": "Infra e Cloud",
-    "emoji": "🐳",
-    "dor_resolvida": "Evitar o problema clássico de 'na minha máquina funciona'.",
-    "descricao": "Empacote e rode aplicações isoladas em containers consistentes em qualquer ambiente.",
-    "url": "https://docker.com"
+    "id": "omma",
+    "nome": "Omma [No-code] [IA]",
+    "categoria": "IA e Automação",
+    "emoji": "⚙️",
+    "dor_resolvida": "Tirar ideias do papel e testar conceitos sem depender de conhecimento em programação.",
+    "descricao": "Crie games, cenas 3D, aplicativos e sites inteiros utilizando apenas comandos de IA.",
+    "url": "https://omma.build/"
   },
   {
-    "id": "postman",
-    "nome": "Postman [API] [Testes]",
-    "categoria": "Back-end",
-    "emoji": "👨‍🚀",
-    "dor_resolvida": "Testar, documentar e mockar rotas de APIs REST e GraphQL.",
-    "descricao": "Plataforma colaborativa completa para ciclo de vida de desenvolvimento de APIs.",
-    "url": "https://postman.com"
-  },
-  {
-    "id": "prisma",
-    "nome": "Prisma [ORM] [Database]",
-    "categoria": "Bancos de Dados",
-    "emoji": "◬",
-    "dor_resolvida": "Escrever queries SQL seguras e tipadas usando TypeScript/Node.js.",
-    "descricao": "ORM moderno que facilita a interação da sua aplicação com bancos de dados relacionais.",
-    "url": "https://prisma.io"
-  },
-  {
-    "id": "railway",
-    "nome": "Railway [Deploy] [Cloud]",
-    "categoria": "Infra e Cloud",
-    "emoji": "🚂",
-    "dor_resolvida": "Colocar bancos de dados e APIs no ar rapidamente sem lidar com AWS.",
-    "descricao": "Plataforma de infraestrutura para conectar, desenvolver e dar deploy em qualquer coisa.",
-    "url": "https://railway.app"
-  },
-  {
-    "id": "raycast",
-    "nome": "Raycast [Mac] [Shortcuts]",
-    "categoria": "Produtividade",
-    "emoji": "🔦",
-    "dor_resolvida": "Navegar no sistema e usar ferramentas úteis sem tirar a mão do teclado.",
-    "descricao": "Um launcher super rápido e expansível para macOS focado em desenvolvedores.",
-    "url": "https://raycast.com"
-  },
-  {
-    "id": "sentry",
-    "nome": "Sentry [Erros] [Monitoramento]",
-    "categoria": "Back-end",
+    "id": "who-can-use",
+    "nome": "Who Can Use [Acessibilidade] [Cores]",
+    "categoria": "UI / UX",
     "emoji": "👁️",
-    "dor_resolvida": "Descobrir que a aplicação quebrou em produção antes do usuário reclamar.",
-    "descricao": "Monitoramento de erros e performance em tempo real para desenvolvedores.",
-    "url": "https://sentry.io"
+    "dor_resolvida": "Evitar a exclusão visual garantindo que o contraste atenda a diferentes deficiências visuais.",
+    "descricao": "Descubra como diferentes perfis de visão enxergam as combinações de cores da sua paleta.",
+    "url": "https://whocanuse.com/"
   },
   {
-    "id": "vscode",
-    "nome": "VS Code [Editor] [IDE]",
+    "id": "screensdesign",
+    "nome": "ScreensDesign [Inspiração] [UX]",
+    "categoria": "UI / UX",
+    "emoji": "📱",
+    "dor_resolvida": "Acelerar decisões de interface utilizando referências reais em vez de templates genéricos.",
+    "descricao": "Explore centenas de telas catalogadas de aplicativos e sites reais para inspiração.",
+    "url": "https://screensdesign.com/"
+  },
+  {
+    "id": "gamma",
+    "nome": "Gamma [IA] [Documentos]",
+    "categoria": "IA e Automação",
+    "emoji": "📄",
+    "dor_resolvida": "Comunicar informações densas de forma fluida sem perder tempo com formatação.",
+    "descricao": "Crie apresentações dinâmicas, documentos e páginas da web com IA em poucos minutos.",
+    "url": "https://gamma.app/pt-br"
+  },
+  {
+    "id": "fullstory",
+    "nome": "FullStory [Analytics] [Research]",
+    "categoria": "Back-end",
+    "emoji": "🔎",
+    "dor_resolvida": "Identificar fricções reais na navegação e entender onde os usuários desistem.",
+    "descricao": "Analise o comportamento real dos usuários na interface para aprimorar a experiência.",
+    "url": "https://www.fullstory.com/"
+  },
+  {
+    "id": "use-contrast",
+    "nome": "Use Contrast [Acessibilidade] [Figma]",
+    "categoria": "UI / UX",
+    "emoji": "🌗",
+    "dor_resolvida": "Garantir a legibilidade e conformidade da interface sem interromper o fluxo criativo.",
+    "descricao": "Plugin para Figma que avalia e gera combinações de cores com contraste acessível.",
+    "url": "https://www.figma.com/community/plugin/1149686177449921115/use-contrast"
+  },
+  {
+    "id": "granola",
+    "nome": "Granola [Transcrição] [Reuniões]",
     "categoria": "Produtividade",
     "emoji": "📝",
-    "dor_resolvida": "Um editor leve, porém altamente extensível para qualquer linguagem.",
-    "descricao": "Editor de código fonte redefinido e otimizado para a construção de apps modernos.",
-    "url": "https://code.visualstudio.com"
+    "dor_resolvida": "Manter o foco na conversa durante calls sem perder documentação de insights importantes.",
+    "descricao": "Grave, transcreva e organize reuniões técnicas automaticamente utilizando IA.",
+    "url": "https://www.granola.ai/"
   },
   {
-    "id": "firebase",
-    "nome": "Firebase [BaaS] [Mobile]",
-    "categoria": "Back-end",
-    "emoji": "🔥",
-    "dor_resolvida": "Adicionar autenticação, banco em tempo real e analytics sem criar servidor.",
-    "descricao": "Plataforma de desenvolvimento de aplicativos móveis e web apoiada pelo Google.",
-    "url": "https://firebase.google.com"
+    "id": "pixlr",
+    "nome": "Pixlr [Edição] [Imagem]",
+    "categoria": "UI / UX",
+    "emoji": "🖼️",
+    "dor_resolvida": "Realizar recortes e tratamentos pontuais sem depender de licenças de softwares pesados.",
+    "descricao": "Edite imagens com IA diretamente no navegador através de ferramentas leves e rápidas.",
+    "url": "https://pixlr.com/"
   },
   {
-    "id": "vite",
-    "nome": "Vite [Build] [Tooling]",
-    "categoria": "Front-end",
-    "emoji": "⚡",
-    "dor_resolvida": "Acabar com a lentidão no tempo de inicialização e hot-reload no front-end.",
-    "descricao": "Ferramenta de build super rápida e servidor de desenvolvimento para web moderna.",
-    "url": "https://vitejs.dev"
+    "id": "cleanup-pictures",
+    "nome": "Cleanup.pictures [IA] [Imagem]",
+    "categoria": "IA e Automação",
+    "emoji": "🧹",
+    "dor_resolvida": "Preparar assets visuais rapidamente eliminando distrações do fundo da imagem.",
+    "descricao": "Remova objetos, pessoas ou imperfeições de fotografias com IA em poucos segundos.",
+    "url": "https://cleanup.pictures/"
+  },
+  {
+    "id": "dzine",
+    "nome": "Dzine [IA] [Design]",
+    "categoria": "IA e Automação",
+    "emoji": "✨",
+    "dor_resolvida": "Gerar variações de peças visuais para testes A/B com baixo esforço manual.",
+    "descricao": "Plataforma simplificada para criação de designs e edições generativas com IA.",
+    "url": "https://www.dzine.ai/"
+  },
+  {
+    "id": "linear",
+    "nome": "Linear [Gestão] [Produto]",
+    "categoria": "Produtividade",
+    "emoji": "🛤️",
+    "dor_resolvida": "Reduzir o atrito no rastreamento de bugs e tarefas em ciclos rápidos de desenvolvimento.",
+    "descricao": "Gerenciador de tarefas incrivelmente rápido e focado em times de alta performance.",
+    "url": "https://linear.app/"
+  },
+  {
+    "id": "photopea",
+    "nome": "Photopea [Edição] [Web]",
+    "categoria": "UI / UX",
+    "emoji": "🟢",
+    "dor_resolvida": "Abrir e editar arquivos PSD nativos em máquinas que não possuem o pacote Adobe.",
+    "descricao": "Editor de imagens robusto direto no navegador com interface similar aos padrões de mercado.",
+    "url": "https://www.photopea.com/"
+  },
+  {
+    "id": "iconify",
+    "nome": "Iconify [Ícones] [Figma]",
+    "categoria": "UI / UX",
+    "emoji": "📦",
+    "dor_resolvida": "Acelerar a prototipação consolidando várias bibliotecas de ícones no mesmo repositório.",
+    "descricao": "Acesse milhares de ícones vetoriais diretamente no Figma através de um único plugin.",
+    "url": "https://www.figma.com/community/plugin/735098390272716381/iconify"
+  },
+  {
+    "id": "gotresumebuilder",
+    "nome": "GotResumeBuilder [Carreira] [Documentos]",
+    "categoria": "Produtividade",
+    "emoji": "📄",
+    "dor_resolvida": "Garantir uma estrutura limpa e legível para sistemas de ATS em processos seletivos.",
+    "descricao": "Construtor de currículos estruturados para atualizar sua trajetória sem atrito visual.",
+    "url": "https://www.gotresumebuilder.com/"
+  },
+  {
+    "id": "runway",
+    "nome": "Runway [Vídeo] [IA]",
+    "categoria": "IA e Automação",
+    "emoji": "🎥",
+    "dor_resolvida": "Produzir e alterar assets de vídeo de forma escalável sem ilhas de edição parrudas.",
+    "descricao": "Suíte avançada de criação e edição de vídeos com modelos generativos de IA.",
+    "url": "https://runwayml.com/"
+  },
+  {
+    "id": "loom",
+    "nome": "Loom [Vídeo] [Comunicação]",
+    "categoria": "Produtividade",
+    "emoji": "📹",
+    "dor_resolvida": "Substituir reuniões síncronas longas por explicações assíncronas claras.",
+    "descricao": "Grave sua tela, câmera e áudio simultaneamente e compartilhe com um único link.",
+    "url": "https://www.loom.com/"
+  },
+  {
+    "id": "content-reel",
+    "nome": "Content Reel [Figma] [Conteúdo]",
+    "categoria": "UI / UX",
+    "emoji": "📝",
+    "dor_resolvida": "Evitar o uso de Lorem Ipsum para validar layouts de forma mais realista e tangível.",
+    "descricao": "Plugin da Microsoft para inserir textos, nomes e dados reais diretamente nos protótipos.",
+    "url": "https://www.figma.com/community/plugin/731627216655469013/content-reel"
+  },
+  {
+    "id": "iloveimg",
+    "nome": "iLoveIMG [Imagem] [Produtividade]",
+    "categoria": "Produtividade",
+    "emoji": "🛠️",
+    "dor_resolvida": "Resolver tarefas triviais de conversão e corte de imagens de forma isolada e ágil.",
+    "descricao": "Plataforma web simples para comprimir, converter e redimensionar imagens em lote.",
+    "url": "https://www.iloveimg.com/"
+  },
+  {
+    "id": "blush",
+    "nome": "Blush [Ilustração] [Figma]",
+    "categoria": "UI / UX",
+    "emoji": "🖌️",
+    "dor_resolvida": "Humanizar interfaces e empty states sem depender de orçamentos para ilustração dedicada.",
+    "descricao": "Crie e customize ilustrações modulares diretamente dentro do seu fluxo no Figma.",
+    "url": "https://www.figma.com/community/plugin/838959511417581040/blush"
   }
 ]
